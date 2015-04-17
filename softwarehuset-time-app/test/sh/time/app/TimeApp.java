@@ -3,27 +3,32 @@ package sh.time.app;
 import java.util.*;
 
 public class TimeApp {
-	
-	boolean loggedIn = false;
-	List<Project> projects = new ArrayList<Project>(); 
+
+	private String user; 
+	private List<Project> projects = new ArrayList<Project>(); 
 	
 	public boolean adminLoggedIn() {
-		if (loggedIn) {
+		if (this.user == "admin") {
 			return true; 
 		}
 		return false;
 	}
 
-	public boolean adminLogIn(String string) {
+	public boolean logIn(String string) {
 		if (string.equals("adminadmin")){
-			loggedIn = true; 
+			this.user = "admin"; 
 			return true; 
 		} 
 		return false; 
 	}
 
-	public void addProject(Project project) {
-		this.projects.add(project);
+	public void addProject(Project project) throws OperationNotAllowedException {
+		if (! (this.user == "admin")) {
+			throw new OperationNotAllowedException("Add project operation not allowed if not admin.", "Add project"); 
+		} else {
+			this.projects.add(project);
+		}
+		
 		
 	}
 

@@ -18,28 +18,29 @@ public class TestCreateProject {
 		assertFalse(timeApp.adminLoggedIn()); 
 		
 		// wrong admin login
-		boolean login = timeApp.adminLogIn("wrong"); 
+		boolean login = timeApp.logIn("wrong"); 
 		
 		//check admin logged in
 		assertFalse(login);
 		assertFalse(timeApp.adminLoggedIn()); 
 				
 		// correct admin login
-		login = timeApp.adminLogIn("adminadmin"); 
+		login = timeApp.logIn("adminadmin"); 
 		
 		//check admin logged in
 		assertTrue(login);
 		assertTrue(timeApp.adminLoggedIn()); 
 	}
 	
+	
 	@Test
-	public void testAdminCreateProject() {
+	public void testAdminAddProject() throws Exception {
 		TimeApp timeApp = new TimeApp(); 
 		
 		assertFalse(timeApp.adminLoggedIn()); 
 		
 		// correct admin login
-		boolean login = timeApp.adminLogIn("adminadmin");
+		boolean login = timeApp.logIn("adminadmin");
 		
 		//check admin logged in
 		assertTrue(login);
@@ -55,6 +56,32 @@ public class TestCreateProject {
 		timeApp.addProject(project1);
 		assertEquals(projects.size(), preSize + 1);
 	}
+	
+	@Test
+	public void testAdminCreateProjectNotLoggedIn() throws Exception {
+		TimeApp timeApp = new TimeApp(); 
+		
+		assertFalse(timeApp.adminLoggedIn()); 
+		
+		String name = "Project1";
+		Project project1 = new Project(name); 
+		
+		try { 
+			timeApp.addProject(project1);
+			fail("OperationNotAllowedException exception should have been thrown"); 
+		} catch (OperationNotAllowedException e){
+			assertEquals("Add project operation not allowed if not admin.", e.getMessage()); 
+			assertEquals("Add project", e.getOperation()); 
+		}
+	}
+	
+//	@Test 
+//	public void testAdminCreateProject() throws Exception {
+//		TimeApp timeApp = new TimeApp();
+//		
+//		a
+//		
+//	}
 	
 	
 }
