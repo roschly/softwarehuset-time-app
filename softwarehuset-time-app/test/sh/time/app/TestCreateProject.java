@@ -1,5 +1,6 @@
 package sh.time.app;
 import static org.junit.Assert.assertEquals; 
+import static org.junit.Assert.assertNotEquals; 
 import static org.junit.Assert.assertFalse; 
 import static org.junit.Assert.assertTrue; 
 import static org.junit.Assert.fail; 
@@ -9,42 +10,54 @@ import java.util.List;
 import org.junit.Test; 
 
 public class TestCreateProject {
-
+	
 	@Test
+	public void testCreateProject() {
+		TimeApp timeApp = new TimeApp(); 
+		
+		Integer preSize = timeApp.projects.size();
+				
+		Admin admin = new Admin();
+		
+		admin.createProject("nytProject");
+		assertEquals(timeApp.projects.size(), preSize + 1); 
+	}
+
+	/*@Test
 	public void testLogIn() {
 		TimeApp timeApp = new TimeApp(); 
 		
 		//check admin is not logged in
-		assertFalse(timeApp.adminLoggedIn()); 
+		String role = "admin";
+		assertFalse(timeApp.logIn(username, )
+		assertNotEquals(timeApp.loggedIn(), role); 
 		
 		// wrong admin login
-		boolean login = timeApp.logIn("wrong"); 
+		String username = "wrongUser"; 
+		String password = "wrongPassword"; 
+		
+		boolean login = timeApp.user.logIn(username, password); 
 		
 		//check admin logged in
 		assertFalse(login);
-		assertFalse(timeApp.adminLoggedIn()); 
+		assertNotEquals(timeApp.user.loggedIn(), role);  
 				
 		// correct admin login
-		login = timeApp.logIn("adminadmin"); 
+		username = "admin"; 
+		password = "adminadmin"; 
+		login = timeApp.user.logIn(username, password); 
 		
 		//check admin logged in
 		assertTrue(login);
-		assertTrue(timeApp.adminLoggedIn()); 
+		assertEquals(timeApp.user.loggedIn(), role); 
+		
 	}
+	
 	
 	
 	@Test
 	public void testAdminAddProject() throws Exception {
 		TimeApp timeApp = new TimeApp(); 
-		
-		assertFalse(timeApp.adminLoggedIn()); 
-		
-		// correct admin login
-		boolean login = timeApp.logIn("adminadmin");
-		
-		//check admin logged in
-		assertTrue(login);
-		assertTrue(timeApp.adminLoggedIn()); 
 		
 		String name = "Project1";
 		Project project1 = new Project(name); 
@@ -58,7 +71,7 @@ public class TestCreateProject {
 	}
 	
 	@Test
-	public void testAdminCreateProjectNotLoggedIn() throws Exception {
+	public void testAdminAddProjectNotLoggedIn() throws Exception {
 		TimeApp timeApp = new TimeApp(); 
 		
 		assertFalse(timeApp.adminLoggedIn()); 
@@ -74,14 +87,6 @@ public class TestCreateProject {
 			assertEquals("Add project", e.getOperation()); 
 		}
 	}
-	
-//	@Test 
-//	public void testAdminCreateProject() throws Exception {
-//		TimeApp timeApp = new TimeApp();
-//		
-//		a
-//		
-//	}
-	
+	*/
 	
 }
