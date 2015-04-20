@@ -2,14 +2,13 @@ package sh.time.app;
 
 public class Project {
 	
-	private String name; 
+	private String name;
 	
-	public Project(){
-		
-	}
 	
 	public Project(String name) {
 		this.name = name; 
 	}
+	
+	
 
 }
