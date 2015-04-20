@@ -84,11 +84,12 @@ public class TimeApp {
 		
 		if ( thisUser.role.equals("admin") ){
 			
+
+			/*
 			Class<?> cls = Class.forName("sh.time.app.Admin");
-			
 			Method[] m = cls.getMethods();
-			
-			System.out.println("HEY: " + m[0]);
+			System.out.println("HEY: " + m[1]);
+			*/
 			
 			System.out.println("Available actions:");
 			System.out.println("----------");

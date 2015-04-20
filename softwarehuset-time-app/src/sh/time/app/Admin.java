@@ -8,7 +8,12 @@ public class Admin extends User {
 		TimeApp.projects.add(project);
 	}
 	
-	public void assignProjectManager(){
+	public void assignProjectManager(Developer dev, Project project){
 		
 	}
+	
+	public void deleteProject(){}
+	public void unassignProjectManager(){}
+	
+	
 }
