@@ -1,5 +1,8 @@
 package sh.time.app;
 
+import java.util.Date;
+import java.util.HashMap;
+
 public class Developer extends User {
 	
 	public Developer(String username, String password, String role){
@@ -18,7 +21,12 @@ public class Developer extends User {
 			throw new MissingRightsException("Create task operation not allowed if not project manager", "Create task");
 		}
 	}
-	
-	public void timeRegistration(){}
+
+	public void createProjectActivity(Date date, HashMap<Task, Double> taskList) throws MissingRightsException{
+		Activity activity = new ProjectActivity(date, this, taskList);
+		
+		TimeApp.activities.add(activity);
+		
+	}
 	
 }

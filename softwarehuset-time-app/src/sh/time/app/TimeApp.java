@@ -9,6 +9,7 @@ public class TimeApp {
 	public static Set<String> roles = new HashSet<String>(); 
 	public static List<Project> projects = new ArrayList<Project>();
 	public static UserbaseSet<User> users = new UserbaseSet<User>();
+	public static List<Activity> activities = new ArrayList<Activity>();
 	
 	public static Scanner console = new Scanner(System.in);
 	public static User thisUser;
@@ -23,7 +24,6 @@ public class TimeApp {
 			// roles
 			roles.add("admin");
 			roles.add("developer");
-			roles.add("projectmanager");
 		
 			//users
 			users.add(new User("admin", "a", "admin"));

@@ -5,6 +5,7 @@ public class Task {
 	
 	private int id;
 	private String name;
+	private double estimatedDuration;
 	
 	public Task(String name){
 		this.id = Task.nextTaskId;
@@ -12,5 +13,7 @@ public class Task {
 		
 		this.name = name;
 	}
+	
+	// method: how much time spent on this task (check activities)
 
 }

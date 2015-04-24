@@ -17,10 +17,10 @@ public class TestProjectmanagement {
 		Project project = new Project("projectname");
 		
 		// Make developer a project manager
-		project.assignProjectmanager(dev);
+		project.setProjectmanager(dev);
 		
 		int preSize = project.getTasks().size();
-		 
+		
 		dev.createTask(project, "taskname");
 		
 		// tasklist increase by 1

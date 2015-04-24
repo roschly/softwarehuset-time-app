@@ -12,7 +12,7 @@ public class Admin extends User {
 	}
 	
 	public void assignProjectManager(Developer dev, Project project){
-		
+		project.setProjectmanager(dev);
 	}
 	
 	public void deleteProject(){}
