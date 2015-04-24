@@ -22,12 +22,12 @@ public class TimeApp {
 		// HARDCODE 
 			// roles
 			roles.add("admin");
-			roles.add("dev");
+			roles.add("developer");
 			roles.add("projectmanager");
 		
 			//users
 			users.add(new User("admin", "a", "admin"));
-			users.add(new User("dev1", "d1", "dev"));
+			users.add(new User("dev1", "d1", "developer"));
 			
 			
 		
