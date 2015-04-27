@@ -13,19 +13,10 @@ public class TimeApp {
 	public static User currentUser;
 	
 	public static void main(String[] args){
-		Double time = 3.5;
 		
-		System.out.print("HEY HEY");
-		//System.out.println( checkFormat(2.0) );
 		
 	}
 	
-	public static Boolean checkFormat(Double a){
-		if (a % 2 == 0){
-			return true;
-		}
-		return false;
-	}
 	
 	
 }
