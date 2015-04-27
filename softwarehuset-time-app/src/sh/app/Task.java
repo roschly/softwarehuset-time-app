@@ -1,15 +1,20 @@
 package sh.app;
 
 import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Task extends DateObject {
 	private String name;
 	private Double estimatedTime;
 	private HashSet<Developer> developers = new HashSet<Developer>();
-	private HashSet<Activity> activities = new HashSet<Activity>();
+	private ArrayList<Activity> activities = new ArrayList<Activity>();
 
 
-	public Task(){
+	public Task(String name, Double estimatedTime, String startDate, String endDate) throws Exception{
+		super(startDate, endDate);
+		
+		this.setName(name);
+		this.setEstimatedTime(estimatedTime);
 		
 	}
 	
@@ -33,10 +38,13 @@ public class Task extends DateObject {
 		this.developers.add(dev);
 	}
 	
-	public HashSet<Activity> getActivities(){
+	public ArrayList<Activity> getActivities(){
 		return this.activities;
 	}
 	public void addActivity(Activity activity){
 		this.activities.add(activity);
+	}
+	public void removeActivity(Activity activity){
+		this.activities.remove(activity);
 	}
 }

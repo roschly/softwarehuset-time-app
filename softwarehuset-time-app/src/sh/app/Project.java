@@ -1,16 +1,15 @@
 package sh.app;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 
 public class Project extends DateObject{
 	private String name;
 	private Projectmanager projectmanager;
 	private ArrayList<Task> tasks;
 	
-	public Project(){
-		
+	public Project(String name, String startDate, String endDate) throws Exception{
+		super(startDate, endDate);
+		this.setName(name);
 	}
 	
 	public String getName() {

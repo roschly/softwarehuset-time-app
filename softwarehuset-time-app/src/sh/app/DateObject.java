@@ -7,6 +7,13 @@ public class DateObject {
 	private Date startDate;
 	private Date endDate;
 	
+	// TODO: Is throwing an exception here enough, or should it have a try/catch??
+	public DateObject(String startDate, String endDate) throws Exception{
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
+		
+	}
+	
 	public Date getStartDate() {
 		return this.startDate;
 	}
@@ -26,14 +33,14 @@ public class DateObject {
 		return endDate;
 	}
 	
-	public void setEndDate(String endDate) {
+	public void setEndDate(String endDate) throws Exception{
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-ww");
 		
 		try {
 			Date strToDate = format.parse(endDate);
 			
 			if (strToDate.before( this.getStartDate() )){
-				// Throw exception
+				throw new OperationNotAllowedException("End date must be after start date", "Set end date");
 			}
 			
 			this.endDate = strToDate;
