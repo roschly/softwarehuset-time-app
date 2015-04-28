@@ -1,13 +1,12 @@
 package sh.app;
 
 import java.util.*;
-
-import sh.time.app.User;
+import sh.app.User;
 
 public class TimeApp {
 	
 	public static ArrayList<Project> projects = new ArrayList<Project>();
-	public static ArrayList<User> users = new ArrayList<User>();
+	private ArrayList<User> users = new ArrayList<User>();
 	public static HashSet<String> roles = new HashSet<String>();
 	
 	public static User currentUser;
@@ -16,6 +15,37 @@ public class TimeApp {
 		
 		
 	}
+	
+	public ArrayList<User> getUsers(){
+		return this.users;
+	}
+	
+	public HashSet<String> getRoles(){
+		return this.roles;
+	}
+	
+	public ArrayList<User> getUsersByProperty(String property, String value){
+		
+		ArrayList<User> users = new ArrayList<User>();
+		
+		
+		for (User user : this.users){
+			
+			switch (property){
+			case "username":
+				if (user.getUsername().equals(value)){
+					users.add(user);
+				};
+			case "role": 
+				if (user.getRoles().contains(value)){
+					users.add(user);
+				};
+			}
+		}
+		
+		return new ArrayList<User>();
+	}
+	
 	
 	
 	

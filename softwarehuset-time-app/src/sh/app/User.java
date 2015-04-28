@@ -4,15 +4,13 @@ import java.util.ArrayList;
 
 public class User {
 	private String username;
-	private String password;
-	private ArrayList<String> roles = new ArrayList<String>();
+	private String role;
 	
-	public User(String username, String password, ArrayList<String> roles){
+	public User(String username, String password, String role){
 		this.setUsername(username);
-		this.setPassword(password);
 		
 		try {
-			this.setRoles(roles);
+			this.setRole(role);
 		} catch(OperationNotAllowedException e){
 			// TODO: handle error
 		}
@@ -26,24 +24,16 @@ public class User {
 		this.username = username;
 	}
 	
-	public String getPassword(){
-		return this.password;
+	public String getRole(){
+		return this.role;
 	}
-	public void setPassword(String password){
-		this.password = password;
-	}
-	
-	public ArrayList<String> getRoles(){
-		return this.roles;
-	}
-	public void setRoles(ArrayList<String> roles) throws OperationNotAllowedException{
-		for (String role : roles){
-			if ( !TimeApp.roles.contains(role) ){
-				throw new OperationNotAllowedException("One of the roles is recognized", "Set roles");
-			}
+	public void setRole(String role) throws OperationNotAllowedException{
+		
+		if ( !TimeApp.getRoles().contains(role) ){
+			throw new OperationNotAllowedException("The role is not recognized", "Set role");
 		}
 		
-		this.roles = roles;
+		this.role = role;
 	}
 	
 }
