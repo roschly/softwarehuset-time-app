@@ -1,18 +1,25 @@
 package sh.app;
 
 import java.util.*;
+
 import sh.app.User;
 
 public class TimeApp {
 	
-	public static ArrayList<Project> projects = new ArrayList<Project>();
-	private ArrayList<User> users = new ArrayList<User>();
-	public static HashSet<String> roles = new HashSet<String>();
+	public ArrayList<Project> projects = new ArrayList<Project>();
+	public ArrayList<User> users = new ArrayList<User>();
+	public HashSet<String> roles = new HashSet<String>();
 	
 	public static User currentUser;
 	
-	public static void main(String[] args){
+	public TimeApp(){
+		this.roles.add("admin");
+		this.roles.add("projectmanager");
+		this.roles.add("developer");
 		
+		this.users.add( new User("adm", "admin") );
+		this.users.add( new User("pm", "projectmanager") );
+		this.users.add( new User("dev", "developer") );
 		
 	}
 	
@@ -27,26 +34,24 @@ public class TimeApp {
 	public ArrayList<User> getUsersByProperty(String property, String value){
 		
 		ArrayList<User> users = new ArrayList<User>();
-		
-		
+				
 		for (User user : this.users){
 			
 			switch (property){
 			case "username":
+				
 				if (user.getUsername().equals(value)){
 					users.add(user);
+					
 				};
 			case "role": 
-				if (user.getRoles().contains(value)){
+				if (user.getRole().contains(value)){
 					users.add(user);
 				};
 			}
 		}
-		
-		return new ArrayList<User>();
+		return users;
 	}
-	
-	
-	
+
 	
 }

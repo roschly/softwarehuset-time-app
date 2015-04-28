@@ -6,7 +6,7 @@ public class User {
 	private String username;
 	private String role;
 	
-	public User(String username, String password, String role){
+	public User(String username, String role){
 		this.setUsername(username);
 		
 		try {
@@ -29,10 +29,11 @@ public class User {
 	}
 	public void setRole(String role) throws OperationNotAllowedException{
 		
+		/*
 		if ( !TimeApp.getRoles().contains(role) ){
 			throw new OperationNotAllowedException("The role is not recognized", "Set role");
 		}
-		
+		*/
 		this.role = role;
 	}
 	

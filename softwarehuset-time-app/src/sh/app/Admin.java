@@ -1,5 +1,5 @@
 package sh.app;
 
-public class Admin extends User{
+public class Admin {
 
 }
