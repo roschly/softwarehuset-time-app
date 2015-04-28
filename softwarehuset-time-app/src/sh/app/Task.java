@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Task extends DateObject {
 	private String name;
 	private Double estimatedTime;
-	private HashSet<Developer> developers = new HashSet<Developer>();
+	private HashSet<User> developers = new HashSet<User>();
 
 
 	public Task(String name, Double estimatedTime, String startDate, String endDate) throws Exception{
@@ -29,10 +29,10 @@ public class Task extends DateObject {
 		this.estimatedTime = time;
 	}
 	
-	public HashSet<Developer> getDevelopers(){
+	public HashSet<User> getDevelopers(){
 		return this.developers;
 	}
-	public void addDeveloper(Developer dev){
+	public void addDeveloper(User dev){
 		this.developers.add(dev);
 	}
 	

@@ -3,9 +3,9 @@ package sh.app;
 public class Activity extends DateObject{
 	private Double duration;
 	private Task task;
-	private Developer developer;
+	private User developer;
 	
-	public Activity(String startDate, String endDate, Double duration, Task task, Developer developer) throws Exception{
+	public Activity(String startDate, String endDate, Double duration, Task task, User developer) throws Exception{
 		super(startDate, endDate);
 		this.setDuration(duration);
 		this.setTask(task);
@@ -31,10 +31,10 @@ public class Activity extends DateObject{
 		this.task = task;
 	}
 	
-	public Developer getDeveloper(){
+	public User getDeveloper(){
 		return this.developer;
 	}
-	public void setDeveloper(Developer developer){
+	public void setDeveloper(User developer){
 		this.developer = developer;
 	}
 }

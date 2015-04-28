@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class Project extends DateObject{
 	private String name;
-	private Projectmanager projectmanager;
+	private User projectmanager;
 	private ArrayList<Task> tasks;
 	
+	// TODO: Fail if projectname is not unique
 	public Project(String name, String startDate, String endDate) throws Exception{
 		super(startDate, endDate);
 		this.setName(name);
@@ -20,11 +21,11 @@ public class Project extends DateObject{
 		this.name = name;
 	}
 	
-	public Projectmanager getProjectmanager() {
+	public User getProjectmanager() {
 		return this.projectmanager;
 	}
 	
-	public void setProjectmanager(Projectmanager projectmanager) {
+	public void setProjectmanager(User projectmanager) {
 		this.projectmanager = projectmanager;
 	}
 	public ArrayList<Task> getTasks() {

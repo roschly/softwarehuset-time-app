@@ -8,14 +8,15 @@ import sh.app.Project;
 import sh.app.Task;
 import sh.app.User;
 
-public class DevActivityScreen extends Screen {
-	private User user; 
+public class EditActivityScreen extends Screen {
+
+	private User user;
 	private Project project;
 	private Task task;
 	private Activity activity;
 	
-	public DevActivityScreen(User user, Project project, Task task, Activity activity) {
-		this.user = user; 
+	public EditActivityScreen(User user, Project project, Task task, Activity activity) {
+		this.user = user;
 		this.project = project;
 		this.task = task;
 		this.activity = activity;
@@ -23,10 +24,9 @@ public class DevActivityScreen extends Screen {
 
 	@Override
 	public void printMenu(PrintWriter out) throws IOException {
-		out.println("=== DEV: Activity view");
+		out.println("=== EDIT ACTIVITY");
 		out.println("0: Back");
-		out.println("1: Edit activity");
-		out.println("2: Delete activity");
+		// some description of the format of editing	
 
 	}
 
@@ -34,11 +34,9 @@ public class DevActivityScreen extends Screen {
 	public boolean processInput(String input, PrintWriter out) {
 		switch (input){
 		case "0":
-			timeAppUI.setScreen(new DevTaskScreen(this.user, this.project, this.task));
+			timeAppUI.setScreen(new ActivityScreen(this.user, this.project, this.task, this.activity));
 			break;
-		case "1":
-			break;
-		case "2":
+		case "<correct format>":
 			break;
 		default:
 			break;

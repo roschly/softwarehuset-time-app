@@ -14,33 +14,18 @@ public class LoginScreen extends Screen {
 		out.println("Enter username:");
 	}
 
-	//TODO Maybe implement with try catch 
 	@Override
 	public boolean processInput(String input, PrintWriter out){
 		
-		ArrayList<User> users = timeAppUI.getTimeApp().getUsersByProperty("username", input); 
+		User user = timeAppUI.getTimeApp().getUserByUsername(input); 
 
-		if (users.size() > 0) {
-			User user = users.get(0);
-			
-			switch (user.getRole()) {
-				case "admin": 
-					timeAppUI.setScreen( new AdminOverviewScreen(user) );
-					break;
-				case "projectmanager": 
-					timeAppUI.setScreen( new PMOverviewScreen(user) );
-					break;
-				case "developer": 
-					timeAppUI.setScreen( new DevOverviewScreen(user) );
-					break;
-				// TODO: catch all case
-			}
+		if ( user != null ){
+			timeAppUI.setScreen( new OverviewScreen(user) );
 		}
 		else {
-				out.print("User doesn't exist!");
-				timeAppUI.setScreen(new LoginScreen());
-			}
-		
+			out.print("User doesn't exist!");
+			timeAppUI.setScreen( new LoginScreen() );
+		}
 		return false;
 	}
 

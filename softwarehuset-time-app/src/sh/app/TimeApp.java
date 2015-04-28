@@ -8,18 +8,24 @@ public class TimeApp {
 	
 	public ArrayList<Project> projects = new ArrayList<Project>();
 	public ArrayList<User> users = new ArrayList<User>();
-	public HashSet<String> roles = new HashSet<String>();
 	
 	public static User currentUser;
 	
 	public TimeApp(){
-		this.roles.add("admin");
-		this.roles.add("projectmanager");
-		this.roles.add("developer");
 		
-		this.users.add( new User("adm", "admin") );
-		this.users.add( new User("pm", "projectmanager") );
-		this.users.add( new User("dev", "developer") );
+		// hardcode data
+		this.users.add( new User("adm") );
+		this.users.add( new User("pm") );
+		this.users.add( new User("dev") );
+		
+		try {
+			this.projects.add( new Project("p1", "2015-01", "2015-02") );
+			this.projects.add( new Project("p2", "2015-01", "2015-02") );
+			this.projects.add( new Project("p3", "2015-01", "2015-02") );
+		} catch (Exception e){
+			
+		}
+		
 		
 	}
 	
@@ -27,31 +33,26 @@ public class TimeApp {
 		return this.users;
 	}
 	
-	public HashSet<String> getRoles(){
-		return this.roles;
-	}
 	
-	public ArrayList<User> getUsersByProperty(String property, String value){
-		
-		ArrayList<User> users = new ArrayList<User>();
-				
+	public User getUserByUsername(String username){
 		for (User user : this.users){
-			
-			switch (property){
-			case "username":
-				
-				if (user.getUsername().equals(value)){
-					users.add(user);
-					
-				};
-			case "role": 
-				if (user.getRole().contains(value)){
-					users.add(user);
-				};
+			if ( user.getUsername().equals(username) ){
+				return user; 
 			}
 		}
-		return users;
+		return null;
 	}
-
 	
+	public Project getProjectByName(String name){
+		for (Project project : this.projects){
+			if ( project.getName().equals(name) ){
+				return project;
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Project> getProjects(){
+		return this.projects;
+	}
 }
