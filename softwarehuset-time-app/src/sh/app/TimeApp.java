@@ -6,15 +6,15 @@ import sh.app.User;
 
 public class TimeApp {
 	
-	public ArrayList<Project> projects = new ArrayList<Project>();
-	public ArrayList<User> users = new ArrayList<User>();
+	private ArrayList<Project> projects = new ArrayList<Project>();
+	private ArrayList<User> users = new ArrayList<User>();
 	
 	//public static User currentUser;
 	
 	public TimeApp(){
 		
 		// hardcode data
-		this.users.add( new User("adm") );
+		/*this.users.add( new User("adm") );
 		this.users.add( new User("pm") );
 		this.users.add( new User("dev") );
 		
@@ -24,7 +24,7 @@ public class TimeApp {
 			this.projects.add( new Project("p3", "2015-01", "2015-02") );
 		} catch (Exception e){
 			
-		}
+		}*/
 		
 		
 	}
@@ -51,7 +51,7 @@ public class TimeApp {
 			throw new OperationNotAllowedException("Project name must be unique", "Add project");
 		}
 		else {
-			this.addProject(project);
+			this.projects.add(project);
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class TimeApp {
 		return null;
 	}
 	public Project getProjectByName(String name){
-		for (Project project : this.projects){
+		for (Project project : this.getProjects()){
 			if ( project.getName().equals(name) ){
 				return project;
 			}

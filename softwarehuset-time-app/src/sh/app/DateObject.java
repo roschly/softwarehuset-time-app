@@ -39,7 +39,7 @@ public class DateObject {
 		try {
 			Date strToDate = format.parse(endDate);
 			
-			if (strToDate.before( this.getStartDate() )){
+			if (this.getStartDate().before(strToDate)){
 				throw new OperationNotAllowedException("End date must be after start date", "Set end date");
 			}
 			
