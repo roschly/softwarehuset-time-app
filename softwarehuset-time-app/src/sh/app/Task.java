@@ -42,5 +42,14 @@ public class Task extends DateObject {
 	}
 	public void addActivity(Activity activity){
 		this.activities.add(activity);
-	} 
+	}
+	
+	public Activity getActivityById(Integer id){
+		for ( Activity activity : this.getActivities() ){
+			if ( activity.getId() == id ){
+				return activity;
+			}
+		}
+		return null;
+	}
 }

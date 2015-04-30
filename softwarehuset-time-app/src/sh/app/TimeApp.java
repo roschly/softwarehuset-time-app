@@ -13,19 +13,28 @@ public class TimeApp {
 	
 	public TimeApp(){
 		
+		/*
 		// hardcode data
-		/*this.users.add( new User("adm") );
-		this.users.add( new User("pm") );
-		this.users.add( new User("dev") );
-		
 		try {
-			this.projects.add( new Project("p1", "2015-01", "2015-02") );
-			this.projects.add( new Project("p2", "2015-01", "2015-02") );
-			this.projects.add( new Project("p3", "2015-01", "2015-02") );
+			User dev = new User("dev");
+			this.users.add( new User("adm") );
+			this.users.add( new User("pm") );
+			this.users.add( dev );
+	
+			Project p1 = new Project("p1", "2015-01", "2015-02");
+			this.projects.add( p1 );
+			this.projects.add( new Project("p2", "2015-01", "2015-04") );
+			this.projects.add( new Project("p3", "2015-01", "2015-04") );
+			
+			Task t1 = new Task(p1, "t1", 5.0, "2015-02", "2015-03");
+			new Task(p1, "t2", 10.0, "2015-02", "2015-03");
+			
+			new Activity("2015-01-01", 8.0, dev, t1);
+			new Activity("2015-01-02", 7.5, dev, t1);
 		} catch (Exception e){
 			
-		}*/
-		
+		}
+		*/
 		
 	}
 	

@@ -17,7 +17,7 @@ public class OverviewScreen extends Screen {
 	
 	@Override
 	public void printMenu(PrintWriter out) throws IOException {
-		out.println("=== OVERVIEW");
+		out.println("=== OVERVIEW: " + this.user.getName());
 		out.println("0: back");
 		out.println("1: show projects"); // timeAppUI.getTimeApp.getProjects
 		out.println("2 <projectname>: select project");
@@ -29,11 +29,8 @@ public class OverviewScreen extends Screen {
 	@Override
 	public boolean processInput(String input, PrintWriter out) {
 		
-		// TODO: error handle
 		String[] cmdInputs = input.split(" ");
 		String cmdNumber = cmdInputs[0];
-		
-		
 		
 		switch (cmdNumber){
 		case "0":
@@ -53,7 +50,7 @@ public class OverviewScreen extends Screen {
 		case "2":
 			// Select project
 			if (cmdInputs.length < 2){
-				out.println("ERROR: Too few arguments");
+				out.print("ERROR: Too few arguments");
 				timeAppUI.setScreen( new OverviewScreen(this.user) );
 				break;
 			}
@@ -63,10 +60,8 @@ public class OverviewScreen extends Screen {
 				timeAppUI.setScreen( new ProjectScreen(this.user, project) );
 				break;
 			}
-		case "3":
-			// Create project
-			break;
 		default:
+			out.print("ERROR: wrong input");
 			break;
 		}
 		return false;

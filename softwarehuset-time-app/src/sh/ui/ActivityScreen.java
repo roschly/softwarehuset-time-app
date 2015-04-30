@@ -24,9 +24,9 @@ public class ActivityScreen extends Screen {
 
 	@Override
 	public void printMenu(PrintWriter out) throws IOException {
-		out.println("=== ACTIVITY VIEW");
+		out.println("=== ACTIVITY VIEW: ID " + this.activity.getId());
 		out.println("0: Back");
-		out.println("1 <hours>: Change hours"); // this.activity.setDuration(<input>)
+		out.println("1 <hours>: Change duration"); // this.activity.setDuration(<input>)
 		//out.println("2: Delete activity");
 
 		
@@ -34,16 +34,35 @@ public class ActivityScreen extends Screen {
 
 	@Override
 	public boolean processInput(String input, PrintWriter out) {
-		switch (input){
+		
+		String[] cmdInputs = input.split(" ");
+		String cmdNumber = cmdInputs[0];
+		
+		switch (cmdNumber){
 		case "0":
 			timeAppUI.setScreen(new TaskScreen(this.user, this.project, this.task));
 			break;
 		case "1":
-			timeAppUI.setScreen( new EditActivityScreen(this.user, this.project, this.task, this.activity) );
-			break;
-		case "2":
-			break;
+			// Change duration
+			if (cmdInputs.length != 2){
+				out.print("ERROR: Incorrect number of arguments");
+				timeAppUI.setScreen( new ActivityScreen(this.user, this.project, this.task, this.activity) );
+				break;
+			}
+			else {
+				String duration = cmdInputs[1];
+				
+				try {
+					this.activity.setDuration( Double.parseDouble(duration) );
+					out.println("New duration: " + duration + " hours, for activity with ID: " + this.activity.getId());
+					timeAppUI.setScreen( new ActivityScreen(this.user, this.project, this.task, this.activity) );
+				} catch(Exception e){
+					out.println(e.getMessage());
+				}
+			}
+			break;			
 		default:
+			out.print("ERROR: wrong input");
 			break;
 		}
 		return false;
