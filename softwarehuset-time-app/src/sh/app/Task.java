@@ -7,13 +7,14 @@ public class Task extends DateObject {
 	private String name;
 	private Double estimatedTime;
 	private HashSet<User> developers = new HashSet<User>();
+	private ArrayList<Activity> activities = new ArrayList<Activity>();
 
-
-	public Task(String name, Double estimatedTime, String startDate, String endDate) throws Exception{
+	public Task(Project project, String name, Double estimatedTime, String startDate, String endDate) throws Exception{
 		super(startDate, endDate);
 		
 		this.setName(name);
-		this.setEstimatedTime(estimatedTime);	
+		this.setEstimatedTime(estimatedTime);
+		project.addTask(this);
 	}
 	
 	public String getName(){
@@ -36,4 +37,10 @@ public class Task extends DateObject {
 		this.developers.add(dev);
 	}
 	
+	public ArrayList<Activity> getActivities(){
+		return this.activities;
+	}
+	public void addActivity(Activity activity){
+		this.activities.add(activity);
+	} 
 }

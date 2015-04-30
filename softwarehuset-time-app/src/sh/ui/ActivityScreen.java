@@ -26,9 +26,10 @@ public class ActivityScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== ACTIVITY VIEW");
 		out.println("0: Back");
-		out.println("1: Edit activity");
-		out.println("2: Delete activity");
+		out.println("1 <hours>: Change hours"); // this.activity.setDuration(<input>)
+		//out.println("2: Delete activity");
 
+		
 	}
 
 	@Override

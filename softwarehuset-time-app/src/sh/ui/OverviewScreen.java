@@ -19,9 +19,9 @@ public class OverviewScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== OVERVIEW");
 		out.println("0: back");
-		out.println("1: show projects");
+		out.println("1: show projects"); // timeAppUI.getTimeApp.getProjects
 		out.println("2 <projectname>: select project");
-		out.println("3 <unique projectname> <startDate> <endDate>: create project");
+		//out.println("3 <unique projectname> <startDate> <endDate>: create project");
 		// Delete project
 
 	}

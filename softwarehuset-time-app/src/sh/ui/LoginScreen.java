@@ -17,7 +17,7 @@ public class LoginScreen extends Screen {
 	@Override
 	public boolean processInput(String input, PrintWriter out){
 		
-		User user = timeAppUI.getTimeApp().getUserByUsername(input); 
+		User user = timeAppUI.getTimeApp().getUserByName(input); 
 
 		if ( user != null ){
 			timeAppUI.setScreen( new OverviewScreen(user) );

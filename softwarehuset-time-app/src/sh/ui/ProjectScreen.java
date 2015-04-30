@@ -20,11 +20,11 @@ public class ProjectScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== PROJECT VIEW: " + this.project.getName());
 		out.println("0: Back");
-		out.println("1: Delete project");
-		out.println("2: Show tasks");
+		//out.println("1: Delete project");
+		out.println("2: Show tasks"); //project.getTasks()
 		out.println("3: Select task");
-		out.println("4: Create task");
-		//out.println("5: Assign project manager");
+		out.println("4 <start date> <end date> <taskname> <estimatedTime> : Create task"); // project.addTask(new task)
+		out.println("5: Assign project manager"); // project.setPM
 		//out.println("6: Project summary");
 	}
 

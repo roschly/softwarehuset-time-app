@@ -24,12 +24,13 @@ public class TaskScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== TASK VIEW");
 		out.println("0: Back");
-		out.println("1: Delete task");		
-		out.println("2: View available developers");
-		out.println("3: Assign developer");
-		out.println("4: Show activities");
-		out.println("5: Select activity");
-		out.println("6: Create activity");
+		//out.println("1: Delete task");		
+		//out.println("2: View available developers");
+		out.println("Show all developers"); // timeApp.getUsers()
+		out.println("3 <dev name>: Assign developer"); // task.assignDev(dev)
+		out.println("4: Show activities"); // task.getActivities , display ID DEV WEEK DURATION (displayList)
+		out.println("5 <activity ID>: Select activity"); // select via ID
+		out.println("6 <week> <duration>: Create your activity"); // task.addActivity( new Activity )
 
 	}
 
