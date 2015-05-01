@@ -46,13 +46,17 @@ public class Activity {
 	public Date getDate(){
 		return this.date;
 	}
-	public void setDate(String date){
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
+	
+	// Jose: inserted OperationNotAllowedException, when parse error.
+	public void setDate(String date) throws Exception{
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		format.setLenient(false);
+		
 		try {
 			Date strToDate = format.parse(date);
 			this.date = strToDate;
 		} catch (Exception e){
-			// TODO: Parse exception	
+			throw new OperationNotAllowedException("Date must have the format yyyy-MM-dd", "Set date");	
 		}
 	}
 	public Integer getId(){
