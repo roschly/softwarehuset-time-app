@@ -11,13 +11,15 @@ public class TimeApp {
 	
 	public TimeApp(){
 		
-		/*
+		
 		// hardcode data
 		try {
 			User dev = new User("dev");
+			User dev2 = new User("dev2");
 			User pm = new User("pm");
 			this.users.add( pm );
 			this.users.add( dev );
+			this.users.add( dev2 ); 
 			
 			Project p1 = new Project("p1", "2015-01", "2015-02");
 			Project p2 = new Project("p2", "2015-01", "2015-02");
@@ -26,15 +28,16 @@ public class TimeApp {
 			
 			p1.setProjectmanager(pm);
 			
-			
-			//Task t1 = new Task(p1, "t1", 5.0, "2015-02", "2015-03");
+			Task t1 = new Task(p1, "t1", pm,  5.0, "2015-02", "2015-03");
+			t1.addDeveloper(dev, pm, p1);
+			Activity activity = new Activity("2015-01-01", 8.0, dev, t1); 
 			//new Task(p1, "t2", 10.0, "2015-02", "2015-03");
 			
 			//new Activity("2015-01-01", 8.0, dev, t1);
 			//new Activity("2015-01-02", 7.5, dev, t1);
 		} catch (Exception e){
 			
-		}*/
+		}
 		
 		
 	}
