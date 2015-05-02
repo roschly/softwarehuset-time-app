@@ -9,13 +9,20 @@ public class Task extends DateObject {
 	private HashSet<User> developers = new HashSet<User>();
 	private ArrayList<Activity> activities = new ArrayList<Activity>();
 
-	public Task(Project project, String name, Double estimatedTime, String startDate, String endDate) throws Exception{
+	public Task(Project project, String name, User user, Double estimatedTime, String startDate, String endDate) throws Exception{
 		super(startDate, endDate);
 		
 		this.setName(name);
 		this.setEstimatedTime(estimatedTime);
-		project.addTask(this);
+		
+		// If user is not PM on project, task is not added to project
+		if (user.equals(project.getProjectmanager())){ 
+				project.addTask(this);
+		} else {
+			throw new OperationNotAllowedException("Must be project manager to create task", "Create task"); 
+		}
 	}
+	
 	
 	public String getName(){
 		return this.name;

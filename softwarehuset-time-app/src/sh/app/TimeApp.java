@@ -9,8 +9,6 @@ public class TimeApp {
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private ArrayList<User> users = new ArrayList<User>();
 	
-	//public static User currentUser;
-	
 	public TimeApp(){
 		
 		/*
@@ -41,6 +39,7 @@ public class TimeApp {
 	public ArrayList<User> getUsers(){
 		return this.users;
 	}
+	
 	public void addUser(User user) throws Exception{
 		if ( this.getUserByName(user.getName()) != null ){
 			throw new OperationNotAllowedException("User name must be unique", "Add user");
@@ -55,12 +54,14 @@ public class TimeApp {
 	}
 	
 	public void addProject(Project project) throws Exception{
+		
+	
 		// Project with that name already exists
 		if ( this.getProjectByName(project.getName()) != null ){
 			throw new OperationNotAllowedException("Project name must be unique", "Add project");
-		}
-		else {
+		} else {
 			this.projects.add(project);
+			//project.setTimeApp(this);
 		}
 	}
 	
@@ -80,4 +81,5 @@ public class TimeApp {
 		}
 		return null;
 	}
+	
 }

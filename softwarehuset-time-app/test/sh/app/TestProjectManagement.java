@@ -13,11 +13,13 @@ import static org.junit.Assert.fail;
 
 public class TestProjectManagement {
 	
-	//Where to put this
+	//  Where to put this
 	@Test
 	public void testGetEstimatedTime() throws Exception{
 		Project project = new Project("p1","2015-01", "2015-04");
-		Task task = new Task(project, "taskname", 5.5,"2015-02", "2015-03");
+		User PM = new User("PM");
+		project.setProjectmanager(PM); 
+		Task task = new Task(project, "taskname", PM,  5.5,"2015-02", "2015-03");
 		
 		assertTrue(task.getEstimatedTime() == 5.5);
 	}
@@ -25,7 +27,9 @@ public class TestProjectManagement {
 	@Test
 	public void testGetDeveloper() throws Exception {
 		Project project = new Project("p1","2015-01", "2015-04");
-		Task task = new Task(project, "taskname", 5.5,"2015-02", "2015-03"); 
+		User PM = new User("PM");
+		project.setProjectmanager(PM); 
+		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		
@@ -40,7 +44,9 @@ public class TestProjectManagement {
 	@Test
 	public void testGetDate() throws Exception {
 		Project project = new Project("p1","2015-01", "2015-04");
-		Task task = new Task(project, "taskname", 5.5,"2015-02", "2015-03"); 
+		User PM = new User("PM");
+		project.setProjectmanager(PM); 
+		Task task = new Task(project, "taskname", PM,  5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
 		String date = "2015-01-01"; 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,7 +71,6 @@ public class TestProjectManagement {
 		DateObject dateObject = new DateObject(startDate, endDate); 
 		
 		assertEquals(dateObject.getEndDate(), format.parse(endDate)); 
-		
 	}
 
 	// TestBasicFunctionality 
@@ -78,7 +83,7 @@ public class TestProjectManagement {
 		String endDate; 
 		DateObject dateObject;
 		
-		//Correct dates. Start before end
+		// Correct dates. Start before end
 		startDate = "2014-01"; 
 		endDate = "2015-01"; 
 		dateObject = new DateObject(startDate, endDate); 
@@ -187,23 +192,10 @@ public class TestProjectManagement {
 		// Correct creation of project
 		Project project = new Project("p1",startDate, endDate); 
 		
-		// Empty string as project name
-		try {
-			project = new Project("",startDate, endDate);  
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Project name cannot be empty"); 
-			assertEquals(e.getOperation(), "Construct project"); 
-		}
-	}
-	 
-	@Test
-	public void testAddProject() throws Exception {
 		TimeApp timeApp = new TimeApp();
 		assertEquals(timeApp.getProjects().size(), 0);
 		
 		// Add project with unique name
-		Project project = new Project("p1", "2015-02", "2015-03");
 		timeApp.addProject(project);
 
 		assertEquals(timeApp.getProjects().size(), 1);
@@ -219,42 +211,27 @@ public class TestProjectManagement {
 			assertEquals(e.getOperation(), "Add project");
 		}		
 		
+		// Empty string as project name
+		try {
+			project = new Project("",startDate, endDate);  
+			fail("OperationNotAllowedException should have been thrown"); 
+		} catch (OperationNotAllowedException e) {
+			assertEquals(e.getMessage(), "Project name cannot be empty"); 
+			assertEquals(e.getOperation(), "Construct project"); 
+		}
 	}
 	
 	@Test 
-	public void testGetAndSetProjectManager() throws Exception{
-		Project project = new Project("p1","2015-01", "2015-02");  
-		User user = new User("dev");
+	public void testAssignProjectManager() throws Exception{
+		Project project = new Project("p1","2015-01", "2015-02");
+		User user1 = new User("dev1");
 		
-		project.setProjectmanager(user);
-		
-		assertEquals(project.getProjectmanager(), user); 
+		project.setProjectmanager(user1);
+		assertEquals(project.getProjectmanager(), user1); 
 	}
 	
 	@Test
-	public void testGetAndAddTask() throws Exception{
-		Project project = new Project("p1","2015-01", "2015-02"); 
-		String taskName = "taskname"; 
-		
-		// Test add task with unique name
-		assertEquals(project.getTasks().size(), 0); 
-		Task task = new Task(project,taskName, 5.0, "2015-01", "2015-02"); 
-		assertEquals(project.getTasks().size(), 1); 
-		
-		// Test add task with not unique name
-		try {
-			Task task1 = new Task(project,taskName, 1.0, "2015-11", "2015-20");
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Task name must be unique"); 
-			assertEquals(e.getOperation(), "Add task"); 
-		}
-		
-	}
-
-	
-	@Test
-	public void selectProject() throws Exception {
+	public void testSelectProject() throws Exception {
 		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1", "2015-01", "2015-02");
 		timeApp.addProject(project);
@@ -269,28 +246,56 @@ public class TestProjectManagement {
 	}
 	
 	@Test
-	public void createTaskAndAddItToProject() throws Exception{
+	public void testPMCreateTask() throws Exception{
+		
 		Project project = new Project("p1","2015-01", "2015-02"); 
+		User PM = new User("PM"); 
+		project.setProjectmanager(PM);
+	
 		String taskName = "taskname"; 
 		
-		// Test add task with unique name
+		// Test PM add task with unique name
 		assertEquals(project.getTasks().size(), 0); 
-		Task task = new Task(project,taskName, 5.0, "2015-01", "2015-02"); 
+		Task task = new Task(project,taskName, PM,  5.0, "2015-01", "2015-02"); 
 		assertEquals(project.getTasks().size(), 1); 
 		
-		// Test add task with not unique name
+		// Test PM add task with not unique name
 		try {
-			Task task1 = new Task(project,taskName, 1.0, "2015-11", "2015-20");
+			Task task1 = new Task(project,taskName, PM, 1.0, "2015-11", "2015-20");
 			fail("OperationNotAllowedException should have been thrown"); 
 		} catch (OperationNotAllowedException e) {
 			assertEquals(e.getMessage(), "Task name must be unique"); 
 			assertEquals(e.getOperation(), "Add task"); 
 		}
+		assertEquals(project.getTasks().size(), 1); 
 		
 	}
 	
-	// TestAssignDeveloperToTask
+	@Test
+	public void testNotPMCreateTask() throws Exception{
+		TimeApp timeApp = new TimeApp(); 
+		
+		Project project = new Project("p1","2015-01", "2015-02"); 
+		User dev = new User("dev"); 
+		User PM = new User("PM"); 
+		project.setProjectmanager(PM);
+		String taskName = "taskname"; 
+		
+		// Test NOT PM add task
+		assertEquals(project.getTasks().size(), 0); 
+		
+		try {
+			Task task = new Task(project,taskName, dev, 5.0, "2015-01", "2015-02"); 
+			fail("OperationNotAllowsException should have been thrown"); 
+		} catch (OperationNotAllowedException e) {
+			assertEquals(e.getMessage(), "Must be project manager to create task"); 
+			assertEquals(e.getOperation(), "Create task"); 
+		}
+		assertEquals(project.getTasks().size(), 0); 
+	}
+
 	
+	// TestAssignDeveloperToTask
 	@Test
 	public void testAddUsersToTimeApp() throws Exception{
 		TimeApp timeApp = new TimeApp(); 
@@ -298,7 +303,6 @@ public class TestProjectManagement {
 		assertEquals(timeApp.getUsers().size(), 0);   
 		
 		// Add user with unique name
-		
 		timeApp.addUser(user);
 		assertEquals(timeApp.getUsers().size(), 1);
 		
@@ -315,15 +319,20 @@ public class TestProjectManagement {
 	@Test
 	public void testGetDevelopers() throws Exception{
 		TimeApp timeApp = new TimeApp(); 
-		User user = new User("dev");
+		User user1 = new User("dev1");
 		
-		timeApp.addUser(user);
+		timeApp.addUser(user1);
 		
 		ArrayList<User> testArray = new ArrayList<User>();
 		assertEquals(testArray.size(), 0);
 		
 		testArray = timeApp.getUsers();
 		assertEquals(testArray.size(), 1);
+		
+		User user2 = new User("dev2");
+		timeApp.addUser(user2);
+		testArray = timeApp.getUsers();
+		assertEquals(testArray.size(), 2);
 	}
 	
 	@Test
@@ -346,6 +355,8 @@ public class TestProjectManagement {
 		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1", "2015-01", "2015-02");
 		timeApp.addProject(project);
+		User PM = new User("PM");
+		project.setProjectmanager(PM);
 		
 		// Return project
 		Project testProject1 = timeApp.getProjectByName(project.getName());
@@ -353,7 +364,7 @@ public class TestProjectManagement {
 		
 		//Return task
 		String taskName = "taskname"; 
-		Task task = new Task(project,taskName, 5.0, "2015-01", "2015-02");
+		Task task = new Task(project,taskName, PM, 5.0, "2015-01", "2015-02");
 		assertEquals(project.getTaskByName(taskName), task);	
 	
 		// Add developer to task 
@@ -375,24 +386,27 @@ public class TestProjectManagement {
 	
 	@Test
 	public void testSelectTask() throws Exception{
-		Project project = new Project("p1","2015-01", "2015-02"); 
+		Project project = new Project("p1","2015-01", "2015-02");
+		User PM = new User("PM"); 
+		project.setProjectmanager(PM);
 		String taskName = "taskname"; 
-		Task task = new Task(project,taskName, 5.0, "2015-01", "2015-02");
+		Task task = new Task(project,taskName, PM, 5.0, "2015-01", "2015-02");
 		assertEquals(project.getTaskByName(taskName), task);
 	}
 	
 	@Test
 	public void testCreateActivity() throws Exception{
-		Project project = new Project("p1","2015-01", "2015-04");
-		Task task = new Task(project, "taskname", 5.5,"2015-02", "2015-03"); 
+		TimeApp timeApp = new TimeApp();
+		Project project = new Project("p1", "2015-01", "2015-02");
+		User PM = new User("PM");
+		project.setProjectmanager(PM); 
+		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		
 		
 		// Test add activity
 		assertEquals(task.getActivities().size(), 0);
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		assertEquals(task.getActivities().size(), 1);
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-DD");
 		
 		// Test wrong date format
 		String wrongDate = "1"; 
@@ -433,11 +447,12 @@ public class TestProjectManagement {
 	}	
 	
 	// TestEditRegisteredTime
-	
 	@Test 
 	public void testSelectActivity() throws Exception{
 		Project project = new Project("p1","2015-01", "2015-04");
-		Task task = new Task(project, "taskname", 5.5,"2015-02", "2015-03"); 
+		User PM = new User("PM");
+		project.setProjectmanager(PM); 
+		Task task = new Task(project, "taskname", PM,  5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		
@@ -445,14 +460,16 @@ public class TestProjectManagement {
 		assertEquals(task.getActivityById(activity.getId()), activity); 
 		
 		//Test activity is not in another task
-		Task wrongTask = new Task(project, "taskname1", 5.5,"2015-02", "2015-03"); 
+		Task wrongTask = new Task(project, "taskname1", PM, 5.5,"2015-02", "2015-03"); 
 		assertEquals(wrongTask.getActivityById(activity.getId()), null); 
 	}
 	
 	@Test
 	public void testEditActivity() throws Exception{
 		Project project = new Project("p1","2015-01", "2015-04");
-		Task task = new Task(project, "taskname", 5.5,"2015-02", "2015-03"); 
+		User PM = new User("PM");
+		project.setProjectmanager(PM); 
+		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		
@@ -480,7 +497,5 @@ public class TestProjectManagement {
 			assertEquals(e.getOperation(), "Set duration");
 		}
 	}
-
-	
 
 }
