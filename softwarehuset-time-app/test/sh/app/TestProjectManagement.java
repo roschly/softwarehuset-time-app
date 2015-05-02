@@ -546,13 +546,13 @@ public class TestProjectManagement {
 		Double dur = 1.5;
 		
 		// Test set a duration divisable by 0.5 AND not 0
-		activity.setDuration(dur);
+		activity.changeDuration(dur, user, project);
 		assertEquals(activity.getDuration(), dur);
 		
 		// Test set a duration NOT divisable by 0.5
 		dur = 1.7;
 		try {
-			activity.setDuration(dur);
+			activity.changeDuration(dur, user, project);
 		} catch(OperationNotAllowedException e){
 			assertEquals(e.getMessage(), "Activity duration must be divisable by 0.5 AND not 0");
 			assertEquals(e.getOperation(), "Set duration");
@@ -561,7 +561,7 @@ public class TestProjectManagement {
 		// Test set a duration to 0
 		dur = 0.0;
 		try {
-			activity.setDuration(dur);
+			activity.changeDuration(dur, user, project);
 		} catch(OperationNotAllowedException e){
 			assertEquals(e.getMessage(), "Activity duration must be divisable by 0.5 AND not 0");
 			assertEquals(e.getOperation(), "Set duration");
@@ -581,7 +581,7 @@ public class TestProjectManagement {
 		Double dur = 1.5;
 		
 		// Test set a duration divisable by 0.5 AND not 0
-		activity.setDuration(dur);
+		activity.changeDuration(dur, PM, project);
 		assertEquals(activity.getDuration(), dur);
 		
 	}
@@ -595,12 +595,19 @@ public class TestProjectManagement {
 		User user = new User("dev");
 		task.addDeveloper(user, PM, project);
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
+		User wrongUser = new User("wrongUser");
 		
 		Double dur = 1.5;
 		
-		// Test set a duration divisable by 0.5 AND not 0
-		activity.setDuration(dur);
-		assertEquals(activity.getDuration(), dur);
+		// Try to edit other developers activity when NOT PM
+		try {
+			activity.changeDuration(dur, wrongUser, project);
+			fail("OperationNotAllowedException should have been thrown"); 
+		} catch (OperationNotAllowedException e){
+			assertEquals(e.getMessage(), "Must be projectmanager to edit another developers activity");
+			assertEquals(e.getOperation(), "Edit activity");
+		}
+		assertNotEquals(activity.getDuration(), dur);
 	}
 
 }

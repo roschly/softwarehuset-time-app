@@ -32,10 +32,23 @@ public class Activity {
 	public Double getDuration(){
 		return this.duration;
 	}
+	
 	public void setDuration(Double duration) throws Exception{
 		
-		if (duration % 0.5 != 0 && duration != 0){
-			throw new OperationNotAllowedException("Activity duration must be divisable by 0.5 AND not 0", "Set duration");
+			if (duration % 0.5 != 0 && duration != 0){
+				throw new OperationNotAllowedException("Activity duration must be divisable by 0.5 AND not 0", "Set duration");
+			}		
+		this.duration = duration;
+	}
+	
+	public void changeDuration(Double duration, User user, Project project) throws Exception{
+		
+		if( ! (this.developer.equals(user) || project.getProjectmanager().equals(user)) ) {
+			throw new OperationNotAllowedException("Must be projectmanager to edit another developers activity", "Edit activity"); 
+		} else { 
+			if (duration % 0.5 != 0 && duration != 0){
+				throw new OperationNotAllowedException("Activity duration must be divisable by 0.5 AND not 0", "Set duration");
+			}
 		}
 		
 		this.duration = duration;
