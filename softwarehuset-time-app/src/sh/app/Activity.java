@@ -14,14 +14,19 @@ public class Activity {
 
 	
 	public Activity(String date, Double duration, User developer, Task task) throws Exception{
-		this.id = Activity.nextActivityId;
-		Activity.nextActivityId++;
-		
-		this.setDuration(duration);
-		this.setDeveloper(developer);
-		this.setDate(date);
-		
-		task.addActivity(this);
+		if ( !task.getDevelopers().contains(developer) ) {
+			throw new OperationNotAllowedException("Must be assigned to task to create activity", "Create activity");
+		} else {
+			
+			this.id = Activity.nextActivityId;
+			Activity.nextActivityId++;
+			
+			this.setDuration(duration);
+			this.setDeveloper(developer);
+			this.setDate(date);
+			
+			task.addActivity(this);
+		}
 	}
 	
 	public Double getDuration(){

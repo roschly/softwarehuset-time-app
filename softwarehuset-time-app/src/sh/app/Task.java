@@ -40,8 +40,13 @@ public class Task extends DateObject {
 	public HashSet<User> getDevelopers(){
 		return this.developers;
 	}
-	public void addDeveloper(User dev){
-		this.developers.add(dev);
+	public void addDeveloper(User dev, User PM, Project project) throws Exception{
+		if (! project.getProjectmanager().equals(PM) ) {
+			throw new OperationNotAllowedException("Must be projectmanager to assign developer to task", "Assign developer"); 
+		} else {
+			this.developers.add(dev);
+		}
+		
 	}
 	
 	public ArrayList<Activity> getActivities(){

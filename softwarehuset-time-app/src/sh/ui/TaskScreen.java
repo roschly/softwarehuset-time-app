@@ -72,8 +72,12 @@ public class TaskScreen extends Screen {
 					timeAppUI.setScreen( new TaskScreen(this.user, this.project, this.task) );
 				}
 				else {
-					this.task.addDeveloper(user);
-					out.println("Developer: " + user.getName() + ", assigned to task: " + this.task.getName());
+					try {
+						this.task.addDeveloper(user, this.user, this.project);
+						out.println("Developer: " + user.getName() + ", assigned to task: " + this.task.getName());
+					} catch (Exception e) {
+						out.println(e.getMessage());
+					}
 				}
 				break;
 			}			
