@@ -73,7 +73,7 @@ public class TaskScreen extends Screen {
 				}
 				else {
 					try {
-						this.task.addDeveloper(user, this.user, this.project);
+						this.task.addDeveloper(user, this.user, this.project, null);
 						out.println("Developer: " + user.getName() + ", assigned to task: " + this.task.getName());
 					} catch (Exception e) {
 						out.println(e.getMessage());

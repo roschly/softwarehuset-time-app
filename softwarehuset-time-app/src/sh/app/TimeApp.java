@@ -11,7 +11,7 @@ public class TimeApp {
 	
 	public TimeApp(){
 		
-		
+		/*
 		// hardcode data
 		try {
 			User dev = new User("dev");
@@ -38,6 +38,7 @@ public class TimeApp {
 		} catch (Exception e){
 			
 		}
+		*/
 		
 		
 	}
@@ -86,6 +87,48 @@ public class TimeApp {
 			}
 		}
 		return null;
+	}
+
+	public ArrayList<User> getAvailableDevelopers(Task task) {
+		ArrayList<User> availableDevelopers = new ArrayList<User>();
+		Calendar cal = Calendar.getInstance(); 
+		int startWeek, endWeek;
+		
+		cal.setTime(task.getEndDate());
+		endWeek = cal.get(Calendar.WEEK_OF_YEAR);
+		
+		cal.setTime(task.getStartDate());
+		startWeek = cal.get(Calendar.WEEK_OF_YEAR); 
+		
+		int diff = endWeek-startWeek; 
+		
+		for (User user : users){
+			cal.setTime(task.getStartDate()); 
+			//while ( !cal.getTime().after(task.getEndDate()) ){
+			for (int i = 0; i < diff; i++) {
+				cal.add(Calendar.WEEK_OF_YEAR, i);
+				if ( ! isAvailable(user, cal.getTime()) ){
+					break; 
+				}
+				if (i == diff-1 ) {
+					availableDevelopers.add(user); 
+				}
+			}
+		}
+		return availableDevelopers;
+	}
+
+	public boolean isAvailable(User user, Date time) {
+		
+		int taskCount = 0; 
+		for (Project project : projects) {
+			for( Task task : project.getTasks() ) {
+				if( task.getDevelopers().contains(user) && !task.getStartDate().after(time) && !task.getEndDate().before(time) ) {
+					taskCount ++; 
+				}
+			}
+		}
+		return taskCount < user.getMaxActivities();
 	}
 	
 }
