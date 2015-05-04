@@ -87,7 +87,7 @@ public class ProjectScreen extends Screen {
 				
 				
 				try {
-					Task task = new Task(this.project, taskname, Double.parseDouble(estimatedTime), startDate, endDate);
+					Task task = new Task(this.project, taskname, this.user, Double.parseDouble(estimatedTime), startDate, endDate);
 					timeAppUI.setScreen( new TaskScreen(this.user, this.project, task) );
 				} catch(Exception e){
 					out.println(e.getMessage());

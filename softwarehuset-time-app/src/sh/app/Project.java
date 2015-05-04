@@ -3,11 +3,12 @@ package sh.app;
 import java.util.ArrayList;
 
 public class Project extends DateObject{
+	
 	private String name;
-	private User projectmanager;
+	private User projectmanager = null;
 	private ArrayList<Task> tasks = new ArrayList<Task>();
 	
-	public Project(String name, String startDate, String endDate) throws Exception{
+	public Project(String name,  String startDate, String endDate) throws Exception{
 		super(startDate, endDate);
 		
 		// name must not be empty string
@@ -34,6 +35,7 @@ public class Project extends DateObject{
 	public void setProjectmanager(User projectmanager) {
 		this.projectmanager = projectmanager;
 	}
+	
 	public ArrayList<Task> getTasks() {
 		return this.tasks;
 	}	

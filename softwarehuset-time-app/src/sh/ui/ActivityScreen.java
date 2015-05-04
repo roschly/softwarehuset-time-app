@@ -53,7 +53,7 @@ public class ActivityScreen extends Screen {
 				String duration = cmdInputs[1];
 				
 				try {
-					this.activity.setDuration( Double.parseDouble(duration) );
+					this.activity.changeDuration( Double.parseDouble(duration), this.user, this.project );
 					out.println("New duration: " + duration + " hours, for activity with ID: " + this.activity.getId());
 					timeAppUI.setScreen( new ActivityScreen(this.user, this.project, this.task, this.activity) );
 				} catch(Exception e){
