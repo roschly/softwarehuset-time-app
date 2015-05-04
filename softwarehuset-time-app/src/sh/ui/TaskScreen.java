@@ -25,7 +25,8 @@ public class TaskScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== TASK VIEW: " + this.task.getName());
 		out.println("0: Back");
-		out.println("1: Show all developers"); // timeApp.getUsers()
+		//out.println("1: Show all developers"); // timeApp.getUsers()
+		out.println("1: Show available developers");		
 		out.println("2 <developer name>: Assign developer"); // task.assignDev(dev)
 		out.println("3: Show activities"); // task.getActivities , display ID DEV WEEK DURATION (displayList)
 		out.println("4 <activity ID>: Select activity"); // select via ID
@@ -46,14 +47,14 @@ public class TaskScreen extends Screen {
 			timeAppUI.setScreen( new ProjectScreen(this.user, this.project) );
 			break;
 		case "1":
-			// Show all developers
-			ArrayList<User> users = timeAppUI.getTimeApp().getUsers();
+			// Show available developers
+			ArrayList<User> users = timeAppUI.getAvailableDevelopers(this.task);
 			ArrayList<String> userNames = new ArrayList<String>();
 			
 			for (User user : users){
 				userNames.add(user.getName());
 			}
-			out.println("List of developers");
+			out.println("List of available developers");
 			Screen.displayList( userNames );
 			break;
 		case "2":
@@ -73,7 +74,7 @@ public class TaskScreen extends Screen {
 				}
 				else {
 					try {
-						this.task.addDeveloper(user, this.user, this.project);
+						this.task.addDeveloper(user, this.user, this.project, timeAppUI.getAvailableDevelopers(this.task));
 						out.println("Developer: " + user.getName() + ", assigned to task: " + this.task.getName());
 					} catch (Exception e) {
 						out.println(e.getMessage());
