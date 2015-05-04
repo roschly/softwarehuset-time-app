@@ -4,14 +4,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 public class TestProjectManagement {
+	
+	@Before
+	public void setUp() throws OperationNotAllowedException{
+		TimeApp timeApp = new TimeApp(); 
+		
+		
+	}
 	
 	//  Where to put this
 	@Test
@@ -26,12 +35,15 @@ public class TestProjectManagement {
 	
 	@Test
 	public void testGetDeveloper() throws Exception {
+		TimeApp timeApp = new TimeApp(); 
 		Project project = new Project("p1","2015-01", "2015-04");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		
 		// Correct user
@@ -44,12 +56,15 @@ public class TestProjectManagement {
 	
 	@Test
 	public void testGetDate() throws Exception {
+		TimeApp timeApp = new TimeApp(); 
 		Project project = new Project("p1","2015-01", "2015-04");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM,  5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		String date = "2015-01-01"; 
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		format.setLenient(false);
@@ -354,11 +369,58 @@ public class TestProjectManagement {
 	}
 	
 	@Test
-	public void testPMAssignDeveloper() throws Exception {
+	public void testGetAvailableDevelopers() throws Exception{
+		TimeApp timeApp = new TimeApp(); 
+		Project project = new Project("p1", "2015-01", "2015-02");
+		timeApp.addProject(project);
+		User PM = new User("PM");
+		project.setProjectmanager(PM);
+		Task task = new Task(project, "task", PM, 5.0, "2014-03", "2014-06");
+		
+		User user1 = new User("dev1");
+		User user2 = new User("dev2");
+		User user3 = new User("dev3");
+		User user4 = new User("dev4");
+		User user5 = new User("dev5");
+		
+		timeApp.addUser(user1);
+		timeApp.addUser(user2);
+		timeApp.addUser(user3);
+		timeApp.addUser(user4);
+		timeApp.addUser(user5);
+		
+		
+		ArrayList<User> testArray = new ArrayList<User>();
+		assertEquals(testArray.size(), 0);
+		
+		testArray = timeApp.getAvailableDevelopers(task);
+		assertEquals(testArray.size(), 5);
+	
+		//Loop til at assigne usere til tasks
+		for ( int i = 1; i <= 10; i++ ){
+			Task taskName = new Task(project, "t" + i, PM, 5.0, "2014-01", "2014-10");
+			taskName.addDeveloper(user1, PM, project, timeApp.getAvailableDevelopers(taskName));
+		}
+		
+		SimpleDateFormat format = new SimpleDateFormat("YYYY-ww");
+		format.setLenient(false);
+		
+		assertFalse(timeApp.isAvailable(user1, format.parse("2014-02")));
+		assertTrue(timeApp.isAvailable(user2, format.parse("2014-02")));
+		
+		// Test at kun de ledige returneres
+		testArray = timeApp.getAvailableDevelopers(task);
+		assertEquals(testArray.size(), 4);
+	} 
+	
+	@Test
+	public void testPMAssignAvailableDeveloper() throws Exception {
 		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1", "2015-01", "2015-02");
 		timeApp.addProject(project);
 		User PM = new User("PM");
+		timeApp.addUser(PM);
+		
 		project.setProjectmanager(PM);
 		
 		// Return project
@@ -371,16 +433,56 @@ public class TestProjectManagement {
 		assertEquals(project.getTaskByName(taskName), task);	
 	
 		User user = new User("dev"); 
+		timeApp.addUser(user);
 		
 		// PM add developer
 		assertEquals(task.getDevelopers().size(), 0); 
-		task.addDeveloper(user, PM, project); 
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task)); 
 		assertEquals(task.getDevelopers().size(), 1); 
 		
 		// Test that you cannot add the same developer twice
 		// Implemented with HashSet
-		task.addDeveloper(user, PM, project);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		assertEquals(task.getDevelopers().size(), 1);
+		
+	}
+	
+	@Test
+	public void testIncreaseMaxActivities() throws Exception {
+		TimeApp timeApp = new TimeApp();
+		Project project = new Project("p1", "2015-01", "2015-02");
+		timeApp.addProject(project);
+		User PM = new User("PM");
+		timeApp.addUser(PM);
+		
+		project.setProjectmanager(PM);
+	
+		User user = new User("dev"); 
+		timeApp.addUser(user);
+		
+		//Loop til at assigne usere til tasks
+		for ( int i = 1; i <= 10; i++ ){
+			Task taskName = new Task(project, "t" + i, PM, 5.0, "2014-01", "2014-10");
+			taskName.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(taskName));
+		}
+		
+		assertEquals(user.getMaxActivities(), 10); 
+		
+		// The user has reached the max number of activities in the timeslot of the task
+		Task task = new Task(project, "newtask" , PM, 5.0, "2014-01", "2014-10");
+		try {
+			task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
+			fail("OperationNotAllowedException should have been thrown"); 
+		} catch(OperationNotAllowedException e) {
+			assertEquals(e.getMessage(), "The chosen developer is not available");
+			assertEquals(e.getOperation(), "Assign developer");
+		}
+		
+		// increase max activities
+		user.setMaxActivities(20);
+		assertEquals(user.getMaxActivities(), 20); 
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
+		
 		
 	}
 	
@@ -408,7 +510,7 @@ public class TestProjectManagement {
 		assertEquals(task.getDevelopers().size(), 0); 
 		
 		try {
-			task.addDeveloper(dev2, dev1, project); 
+			task.addDeveloper(dev2, dev1, project, timeApp.getAvailableDevelopers(task)); 
 			fail("OperationNotAllowedException should have been thrown");
 		} catch(OperationNotAllowedException e){
 			assertEquals(e.getMessage(), "Must be projectmanager to assign developer to task");
@@ -435,10 +537,12 @@ public class TestProjectManagement {
 		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1", "2015-01", "2015-02");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		
 		// Test add activity when user is assigned to task
 		assertEquals(task.getActivities().size(), 0);
@@ -472,10 +576,12 @@ public class TestProjectManagement {
 		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1", "2015-01", "2015-02");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		
 		// Test wrong date format
 		String wrongDate = "1"; 
@@ -517,12 +623,15 @@ public class TestProjectManagement {
 	// TestEditRegisteredTime
 	@Test 
 	public void testSelectActivity() throws Exception{
+		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1","2015-01", "2015-04");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM,  5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		
 		//Test activity is in task
@@ -531,16 +640,22 @@ public class TestProjectManagement {
 		//Test activity is not in another task
 		Task wrongTask = new Task(project, "taskname1", PM, 5.5,"2015-02", "2015-03"); 
 		assertEquals(wrongTask.getActivityById(activity.getId()), null); 
+		
+		//Test activity that does not exist
+		assertEquals(task.getActivityById(1000), null); 
 	}
 	
 	@Test
 	public void testEditOwnActivity() throws Exception{
+		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1","2015-01", "2015-04");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		
 		Double dur = 1.5;
@@ -553,6 +668,7 @@ public class TestProjectManagement {
 		dur = 1.7;
 		try {
 			activity.changeDuration(dur, user, project);
+			fail("OperationNotAllowedException should have been thrown"); 
 		} catch(OperationNotAllowedException e){
 			assertEquals(e.getMessage(), "Activity duration must be divisable by 0.5 AND not 0");
 			assertEquals(e.getOperation(), "Set duration");
@@ -562,6 +678,7 @@ public class TestProjectManagement {
 		dur = 0.0;
 		try {
 			activity.changeDuration(dur, user, project);
+			fail("OperationNotAllowedException should have been thrown"); 
 		} catch(OperationNotAllowedException e){
 			assertEquals(e.getMessage(), "Activity duration must be divisable by 0.5 AND not 0");
 			assertEquals(e.getOperation(), "Set duration");
@@ -570,12 +687,15 @@ public class TestProjectManagement {
 	
 	@Test
 	public void testEditActivityPM() throws Exception{
+		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1","2015-01", "2015-04");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		
 		Double dur = 1.5;
@@ -588,12 +708,15 @@ public class TestProjectManagement {
 	
 	@Test
 	public void testEditActivityNotOwnNotPM() throws Exception{
+		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1","2015-01", "2015-04");
 		User PM = new User("PM");
+		timeApp.addUser(PM);
 		project.setProjectmanager(PM); 
 		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-03"); 
 		User user = new User("dev");
-		task.addDeveloper(user, PM, project);
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		User wrongUser = new User("wrongUser");
 		
