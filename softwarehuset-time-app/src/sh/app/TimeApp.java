@@ -11,7 +11,7 @@ public class TimeApp {
 	
 	public TimeApp(){
 		
-		/*
+		
 		// hardcode data
 		try {
 			User dev = new User("dev");
@@ -29,7 +29,7 @@ public class TimeApp {
 			p1.setProjectmanager(pm);
 			
 			Task t1 = new Task(p1, "t1", pm,  5.0, "2015-02", "2015-03");
-			t1.addDeveloper(dev, pm, p1);
+			t1.addDeveloper(dev, pm, p1, this.getAvailableDevelopers(t1));
 			Activity activity = new Activity("2015-01-01", 8.0, dev, t1); 
 			//new Task(p1, "t2", 10.0, "2015-02", "2015-03");
 			
@@ -38,7 +38,7 @@ public class TimeApp {
 		} catch (Exception e){
 			
 		}
-		*/
+		
 		
 		
 	}

@@ -48,7 +48,7 @@ public class TaskScreen extends Screen {
 			break;
 		case "1":
 			// Show available developers
-			ArrayList<User> users = timeAppUI.getAvailableDevelopers(this.task);
+			ArrayList<User> users = timeAppUI.getTimeApp().getAvailableDevelopers(this.task);
 			ArrayList<String> userNames = new ArrayList<String>();
 			
 			for (User user : users){
@@ -74,7 +74,7 @@ public class TaskScreen extends Screen {
 				}
 				else {
 					try {
-						this.task.addDeveloper(user, this.user, this.project, timeAppUI.getAvailableDevelopers(this.task));
+						this.task.addDeveloper(user, this.user, this.project, timeAppUI.getTimeApp().getAvailableDevelopers(this.task));
 						out.println("Developer: " + user.getName() + ", assigned to task: " + this.task.getName());
 					} catch (Exception e) {
 						out.println(e.getMessage());
