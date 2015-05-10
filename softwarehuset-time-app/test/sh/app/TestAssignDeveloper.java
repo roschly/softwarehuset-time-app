@@ -74,7 +74,7 @@ public class TestAssignDeveloper {
 			assertEquals(e.getOperation(), "Assign developer");
 		}
 		
-		// Increase max activities
+		// Increase max activities 
 		user.setMaxActivities(20);
 		assertEquals(user.getMaxActivities(), 20); 
 		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));

@@ -53,6 +53,21 @@ public class TestCreateProject {
 				}
 			}
 			
+			@Test
+			public void testSelectProject() throws Exception {
+				TimeApp timeApp = new TimeApp();
+				Project project = new Project("p1", "2015-01", "2015-02");
+				timeApp.addProject(project);
+				
+				// Return project
+				Project testProject1 = timeApp.getProjectByName(project.getName());
+				assertEquals(testProject1.getName(), project.getName());
+				
+				// Return null
+				Project testProject2 = timeApp.getProjectByName( "wrong name" );
+				assertEquals(testProject2, null);
+			}
+			
 			@Test 
 			public void testAssignProjectManager() throws Exception{
 				Project project = new Project("p1","2015-01", "2015-02");
