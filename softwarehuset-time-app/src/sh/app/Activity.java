@@ -16,17 +16,23 @@ public class Activity {
 	public Activity(String date, Double duration, User developer, Task task) throws Exception{
 		if ( !task.getDevelopers().contains(developer) ) {
 			throw new OperationNotAllowedException("Must be assigned to task to create activity", "Create activity");
-		} else {
-			
-			this.id = Activity.nextActivityId;
-			Activity.nextActivityId++;
-			
-			this.setDuration(duration);
-			this.setDeveloper(developer);
-			this.setDate(date);
-			
-			task.addActivity(this);
+		} 
+		
+		this.setDate(date);
+		
+		// activity date must be contained in task duration
+		if ( this.date.before(task.getStartDate()) || task.getEndDate().before(this.date) ){
+			throw new OperationNotAllowedException("Activity date must be contained in task duration", "Create activity");
 		}
+		
+		this.id = Activity.nextActivityId;
+		Activity.nextActivityId++;
+		
+		this.setDuration(duration);
+		this.setDeveloper(developer);
+		
+	
+		task.addActivity(this);
 	}
 	
 	public Double getDuration(){

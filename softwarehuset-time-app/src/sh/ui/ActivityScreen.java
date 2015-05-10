@@ -27,7 +27,8 @@ public class ActivityScreen extends Screen {
 		out.println("=== ACTIVITY VIEW: ID " + this.activity.getId());
 		out.println("0: Back");
 		out.println("1 <hours>: Change duration"); // this.activity.setDuration(<input>)
-		//out.println("2: Delete activity");
+		//out.println("2 <date: YYYY-MM-DD>: Change date");
+		//out.println("3: Delete activity");
 
 		
 	}

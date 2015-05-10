@@ -11,7 +11,7 @@ public class TimeApp {
 	
 	public TimeApp(){
 		
-		/*
+		
 		// hardcode data
 		try {
 			User dev = new User("dev");
@@ -37,7 +37,7 @@ public class TimeApp {
 			//new Activity("2015-01-02", 7.5, dev, t1);
 		} catch (Exception e){
 			
-		}*/
+		}
 		
 		
 		

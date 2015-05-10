@@ -12,6 +12,15 @@ public class Task extends DateObject {
 	public Task(Project project, String name, User user, Double estimatedTime, String startDate, String endDate) throws Exception{
 		super(startDate, endDate);
 		
+		// Task duration must be contained in project duration
+		if ( this.getStartDate().before(project.getStartDate()) ){
+			throw new OperationNotAllowedException("Task start date cannot be before project start date", "Create task");
+		}
+		
+		if ( project.getEndDate().before(this.getEndDate()) ){
+			throw new OperationNotAllowedException("Task end date cannot be after project end date", "Create task");
+		}
+		
 		this.setName(name);
 		this.setEstimatedTime(estimatedTime);
 		
