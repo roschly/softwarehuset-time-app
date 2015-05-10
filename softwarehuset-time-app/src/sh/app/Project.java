@@ -3,7 +3,6 @@ package sh.app;
 import java.util.ArrayList;
 
 public class Project extends DateObject{
-	
 	private String name;
 	private User projectmanager = null;
 	private ArrayList<Task> tasks = new ArrayList<Task>();
@@ -11,7 +10,6 @@ public class Project extends DateObject{
 	public Project(String name,  String startDate, String endDate) throws Exception{
 		super(startDate, endDate);
 		
-		// name must not be empty string
 		if ( name.equals("") ){
 			throw new OperationNotAllowedException("Project name cannot be empty", "Construct project");
 		}
@@ -38,26 +36,23 @@ public class Project extends DateObject{
 	
 	public ArrayList<Task> getTasks() {
 		return this.tasks;
-	}	
+	}
+	
 	public void addTask(Task task) throws Exception {
-		
 		if ( this.getTaskByName(task.getName()) != null ){
 			throw new OperationNotAllowedException("Task name must be unique", "Add task");
 		}
 		else {
 			this.tasks.add(task);
 		}
-		
 	}
 	
 	public Task getTaskByName(String name){
-		
 		for ( Task task : this.getTasks() ){
 			if ( task.getName().equals(name) ){
 				return task;
 			}
 		}
-		
 		return null;
 	}
 }

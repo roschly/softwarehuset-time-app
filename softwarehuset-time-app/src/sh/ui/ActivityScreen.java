@@ -9,7 +9,6 @@ import sh.app.Task;
 import sh.app.User;
 
 public class ActivityScreen extends Screen {
-
 	private User user;
 	private Project project;
 	private Task task;
@@ -31,7 +30,6 @@ public class ActivityScreen extends Screen {
 
 	@Override
 	public boolean processInput(String input, PrintWriter out) {
-		
 		String[] cmdInputs = input.split(" ");
 		String cmdNumber = cmdInputs[0];
 		
@@ -64,5 +62,4 @@ public class ActivityScreen extends Screen {
 		}
 		return false;
 	}
-
 }

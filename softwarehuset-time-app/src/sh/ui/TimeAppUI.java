@@ -1,4 +1,3 @@
-// Tjek om path passer 
 package sh.ui;
 
 import java.io.BufferedReader;
@@ -9,7 +8,6 @@ import sh.app.*;
 
 //Class copied from LibraryUI
 public class TimeAppUI {
-
 	private Screen screen;
 	private TimeApp timeApp = new TimeApp();
 

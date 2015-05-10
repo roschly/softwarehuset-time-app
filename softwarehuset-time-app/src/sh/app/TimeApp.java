@@ -5,12 +5,10 @@ import java.util.*;
 import sh.app.User;
 
 public class TimeApp {
-	
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private ArrayList<User> users = new ArrayList<User>();
 	
 	public TimeApp(){
-		
 		
 		// hardcode data
 		try {
@@ -38,9 +36,6 @@ public class TimeApp {
 		} catch (Exception e){
 			
 		}
-		
-		
-		
 	}
 	
 	public ArrayList<User> getUsers(){
@@ -61,14 +56,11 @@ public class TimeApp {
 	}
 	
 	public void addProject(Project project) throws Exception{
-		
-	
 		// Project with that name already exists
 		if ( this.getProjectByName(project.getName()) != null ){
 			throw new OperationNotAllowedException("Project name must be unique", "Add project");
 		} else {
 			this.projects.add(project);
-			//project.setTimeApp(this);
 		}
 	}
 	
@@ -80,6 +72,7 @@ public class TimeApp {
 		}
 		return null;
 	}
+	
 	public Project getProjectByName(String name){
 		for (Project project : this.getProjects()){
 			if ( project.getName().equals(name) ){
@@ -119,7 +112,6 @@ public class TimeApp {
 	}
 
 	public boolean isAvailable(User user, Date time) {
-		
 		int taskCount = 0; 
 		for (Project project : projects) {
 			for( Task task : project.getTasks() ) {
@@ -130,5 +122,4 @@ public class TimeApp {
 		}
 		return taskCount < user.getMaxActivities();
 	}
-	
 }
