@@ -1,9 +1,6 @@
 package sh.app;
 
-import java.util.Date;
-
 public class User {
-	
 	private String name;
 	private int maxActivities = 10; 
 	
@@ -14,6 +11,7 @@ public class User {
 	public String getName(){
 		return this.name;
 	}
+	
 	public void setName(String name){
 		this.name = name;
 	}
@@ -25,5 +23,4 @@ public class User {
 	public void setMaxActivities(int maxActivities){
 		this.maxActivities = maxActivities;
 	}
-
 }

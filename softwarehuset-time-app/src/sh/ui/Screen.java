@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import sh.app.*; 
 
 abstract public class Screen {
-
 	TimeAppUI timeAppUI;
 	TimeApp timeApp; 
 
@@ -27,6 +26,5 @@ abstract public class Screen {
 			System.out.println(i + ". " + s);
 			i++;
 		}
-	}
-	
+	}	
 }

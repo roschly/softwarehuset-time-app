@@ -7,7 +7,6 @@ public class DateObject {
 	private Date startDate;
 	private Date endDate;
 	
-	// TODO: Is throwing an exception here enough, or should it have a try/catch??
 	public DateObject(String startDate, String endDate) throws Exception{
 		this.setStartDate(startDate);
 		this.setEndDate(endDate);
@@ -18,11 +17,7 @@ public class DateObject {
 		return this.startDate;
 	}
 	
-	// Jose: inserted OperationNotAllowedException, when parse error.
-	// inserted format.setLenient(false) --> only YYYY-ww format accepted (longer - only first part read e.g 2014-01-01 = 2014-01)
-	
 	public void setStartDate(String startDate) throws Exception{
-		
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-ww");
 		format.setLenient(false);
 		
@@ -37,12 +32,8 @@ public class DateObject {
 	public Date getEndDate() {
 		return this.endDate;
 	}
-	
-	// Jose: inserted OperationNotAllowedException, when parse error.
-	// inserted format.setLenient(false) --> only YYYY-ww format accepted (longer - only first part read e.g 2014-01-01 = 2014-01
-	//  Swithced dates in if-statement
+
 	public void setEndDate(String endDate) throws Exception{
-		
 		SimpleDateFormat format = new SimpleDateFormat("YYYY-ww");
 		format.setLenient(false);
 		Date strToDate; 

@@ -11,8 +11,6 @@ public class Activity {
 	private Date date;
 	private Integer id;
 	
-
-	
 	public Activity(String date, Double duration, User developer, Task task) throws Exception{
 		if ( !task.getDevelopers().contains(developer) ) {
 			throw new OperationNotAllowedException("Must be assigned to task to create activity", "Create activity");
@@ -40,16 +38,14 @@ public class Activity {
 	}
 	
 	public void setDuration(Double duration) throws Exception{
-		
-			if (duration % 0.5 != 0 || duration == 0.0){
-				throw new OperationNotAllowedException("Activity duration must be divisable by 0.5 AND not 0", "Set duration");
-			}
+		if (duration % 0.5 != 0 || duration == 0.0){
+			throw new OperationNotAllowedException("Activity duration must be divisable by 0.5 AND not 0", "Set duration");
+		}
 			
 		this.duration = duration;
 	}
 	
 	public void changeDuration(Double duration, User user, Project project) throws Exception{
-		
 		if( ! (this.developer.equals(user)) ) {
 			throw new OperationNotAllowedException("Can only edit own activity", "Edit activity"); 
 		} 
@@ -68,7 +64,6 @@ public class Activity {
 		return this.date;
 	}
 	
-	// Jose: inserted OperationNotAllowedException, when parse error.
 	public void setDate(String date) throws Exception{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		format.setLenient(false);
@@ -80,8 +75,8 @@ public class Activity {
 			throw new OperationNotAllowedException("Date must have the format yyyy-MM-dd", "Set date");	
 		}
 	}
+
 	public Integer getId(){
 		return this.id;
 	} 
-	
 }

@@ -2,10 +2,6 @@ package sh.ui;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-//remove after date test
-import java.util.Date;
 
 import sh.app.*; 
 

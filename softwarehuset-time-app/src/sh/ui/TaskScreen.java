@@ -10,7 +10,6 @@ import sh.app.Task;
 import sh.app.User;
 
 public class TaskScreen extends Screen {
-
 	private User user;
 	private Project project;
 	private Task task;
@@ -25,15 +24,11 @@ public class TaskScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== TASK VIEW: " + this.task.getName());
 		out.println("0: Back");
-		//out.println("1: Show all developers"); // timeApp.getUsers()
 		out.println("1: Show available developers");		
-		out.println("2 <developer name>: Assign developer"); // task.assignDev(dev)
-		out.println("3: Show activities"); // task.getActivities , display ID DEV WEEK DURATION (displayList)
-		out.println("4 <activity ID>: Select activity"); // select via ID
-		out.println("5 <date: YYYY-MM-DD> <duration>: Create your activity"); // task.addActivity( new Activity )
-		//out.println("1: Delete task");		
-		//out.println("2: View available developers");
-		
+		out.println("2 <developer name>: Assign developer");
+		out.println("3: Show activities");
+		out.println("4 <activity ID>: Select activity");
+		out.println("5 <date: YYYY-MM-DD> <duration>: Create your activity");		
 	}
 
 	@Override
@@ -135,5 +130,4 @@ public class TaskScreen extends Screen {
 		}
 		return false;
 	}
-
 }

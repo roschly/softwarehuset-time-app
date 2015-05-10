@@ -9,7 +9,6 @@ import sh.app.Task;
 import sh.app.User;
 
 public class ProjectScreen extends Screen {
-
 	private User user;
 	private Project project;
 	
@@ -22,18 +21,15 @@ public class ProjectScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== PROJECT VIEW: " + this.project.getName());
 		out.println("0: Back");
-		out.println("1: Show tasks"); //project.getTasks()
+		out.println("1: Show tasks");
 		out.println("2 <taskname>: Select task");
-		out.println("3 <start date> <end date> <taskname> <estimatedTime>: Create task"); // new task
-		out.println("4: Show all developers"); // project.setPM
-		out.println("5 <developer name>: Assign project manager"); // project.setPM
-		//out.println("1: Delete project");
-		//out.println("6: Project summary");
+		out.println("3 <start date> <end date> <taskname> <estimatedTime>: Create task");
+		out.println("4: Show all developers");
+		out.println("5 <developer name>: Assign project manager");
 	}
 
 	@Override
 	public boolean processInput(String input, PrintWriter out) {
-		
 		String[] cmdInputs = input.split(" ");
 		String cmdNumber = cmdInputs[0];
 		
@@ -54,8 +50,8 @@ public class ProjectScreen extends Screen {
 			break;
 		case "2":
 			// Select task
-			if (cmdInputs.length < 2){
-				out.print("ERROR: Too few arguments");
+			if (cmdInputs.length != 2){
+				out.print("ERROR: Incorrect number of arguments");
 				timeAppUI.setScreen( new ProjectScreen(this.user, this.project) );
 				break;
 			}
@@ -106,7 +102,7 @@ public class ProjectScreen extends Screen {
 			Screen.displayList( userNames );
 			break;			
 		case "5":
-			// Assign Projectmanager
+			// Assign Project manager
 			if (cmdInputs.length != 2){
 				out.print("ERROR: Incorrect number of arguments");
 				timeAppUI.setScreen( new ProjectScreen(this.user, this.project) );
@@ -132,5 +128,4 @@ public class ProjectScreen extends Screen {
 		}
 		return false;
 	}
-
 }
