@@ -287,6 +287,39 @@ public class TestProjectManagement {
 	}
 	
 	@Test
+	public void testPMCreateTaskIllegalDate() throws Exception{
+		
+		Project project = new Project("p1","2015-02", "2015-04"); 
+		User PM = new User("PM"); 
+		project.setProjectmanager(PM);  
+		
+		assertEquals(project.getTasks().size(), 0); 
+		
+		// Test PM add task with start date before the project's start date
+		try {
+			Task task1 = new Task(project,"t1", PM, 1.0, "2015-01", "2015-03");
+			fail("OperationNotAllowedException should have been thrown"); 
+		} catch (OperationNotAllowedException e) {
+			assertEquals(e.getMessage(), "Task start date cannot be before project start date"); 
+			assertEquals(e.getOperation(), "Create task"); 
+		}
+		
+		assertEquals(project.getTasks().size(), 0); 
+		
+		// Test PM add task with end date after the project's end date
+		try {
+			Task task2 = new Task(project,"t2", PM, 1.0, "2015-03", "2015-05");
+			fail("OperationNotAllowedException should have been thrown"); 
+		} catch (OperationNotAllowedException e) {
+			assertEquals(e.getMessage(), "Task end date cannot be after project end date"); 
+			assertEquals(e.getOperation(), "Create task"); 
+		}
+		
+		assertEquals(project.getTasks().size(), 0); 
+		
+	}
+	
+	@Test
 	public void testNotPMCreateTask() throws Exception{
 		TimeApp timeApp = new TimeApp(); 
 		
@@ -546,7 +579,44 @@ public class TestProjectManagement {
 		assertEquals(task.getActivities().size(), 0);
 		Activity activity = new Activity("2015-01-01", 5.0, user, task);
 		assertEquals(task.getActivities().size(), 1);
+	}
+	
+	@Test
+	public void testCreateActivityOnAssignedTaskIllegalDate() throws Exception{
+		TimeApp timeApp = new TimeApp();
+		Project project = new Project("p1", "2015-01", "2015-02");
+		User PM = new User("PM");
+		timeApp.addUser(PM);
+		project.setProjectmanager(PM); 
+		Task task = new Task(project, "taskname", PM, 5.5,"2015-02", "2015-04"); 
+		User user = new User("dev");
+		timeApp.addUser(user);
+		task.addDeveloper(user, PM, project, timeApp.getAvailableDevelopers(task));
+		
+		assertEquals(task.getActivities().size(), 0);
+		
+		// Activity date before the task start date
+		try {
+			Activity activity1 = new Activity("2015-01-01", 5.0, user, task);
+			fail("OperationNotAllowedException should have been thrown"); 
+		} catch(OperationNotAllowedException e){
+			assertEquals(e.getMessage(), "Activity date must be contained in task duration");
+			assertEquals(e.getOperation(), "Create activity");
+		}
+		
+		assertEquals(task.getActivities().size(), 0);
+		
+		// Activity date after the task start date
+		try {
+			Activity activity2 = new Activity("2015-10-01", 5.0, user, task);
+			fail("OperationNotAllowedException should have been thrown"); 
+		} catch(OperationNotAllowedException e){
+			assertEquals(e.getMessage(), "Activity date must be contained in task duration");
+			assertEquals(e.getOperation(), "Create activity");
+		}
+	
 	}	
+	
 	
 	@Test
 	public void testCreateActivityOnNotAssignedTask() throws Exception{
