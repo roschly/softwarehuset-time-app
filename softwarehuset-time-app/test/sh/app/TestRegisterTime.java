@@ -14,23 +14,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 public class TestRegisterTime {
-	
-	@Before
-	public void setUp() throws OperationNotAllowedException{
-		TimeApp timeApp = new TimeApp(); 	
-	}
-	
 
-	@Test
-	public void testSelectTask() throws Exception{
-		Project project = new Project("p1","2015-01", "2015-02");
-		User PM = new User("PM"); 
-		project.setProjectmanager(PM);
-		String taskName = "taskname"; 
-		Task task = new Task(project,taskName, PM, 5.0, "2015-01", "2015-02");
-		assertEquals(project.getTaskByName(taskName), task);
-	}
-	
 	@Test
 	public void testCreateActivityOnAssignedTask() throws Exception{
 		TimeApp timeApp = new TimeApp();
@@ -82,9 +66,7 @@ public class TestRegisterTime {
 			assertEquals(e.getMessage(), "Activity date must be contained in task duration");
 			assertEquals(e.getOperation(), "Create activity");
 		}
-	
 	}	
-	
 	
 	@Test
 	public void testCreateActivityOnNotAssignedTask() throws Exception{

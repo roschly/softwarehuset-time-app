@@ -15,11 +15,6 @@ import static org.junit.Assert.fail;
 
 public class TestBasicFunctionality {
 	
-	@Before
-	public void setUp() throws OperationNotAllowedException{
-		TimeApp timeApp = new TimeApp(); 	
-	}
-	
 	@Test
 	public void testGetEstimatedTime() throws Exception{
 		Project project = new Project("p1","2015-01", "2015-04");
@@ -52,7 +47,7 @@ public class TestBasicFunctionality {
 	}
 	
 	@Test
-	public void testGetDate() throws Exception {
+	public void testGetActivityDate() throws Exception {
 		TimeApp timeApp = new TimeApp(); 
 		Project project = new Project("p1","2015-01", "2015-40");
 		User PM = new User("PM");
@@ -70,23 +65,9 @@ public class TestBasicFunctionality {
 		
 		// Correct date
 		assertEquals(activity.getDate(), format.parse(date)); 
-		
-		// Different date
-		String differentDate = "2015-03-01"; 
-		assertNotEquals(activity.getDate(), format.parse(differentDate)); 
+	
 	}
 	
-	@Test
-	public void testGetEndDate() throws Exception{
-		String startDate = "2014-01"; 
-		String endDate = "2015-01"; 
-		SimpleDateFormat format = new SimpleDateFormat("YYYY-ww");
-		format.setLenient(false);
-		DateObject dateObject = new DateObject(startDate, endDate); 
-		
-		assertEquals(dateObject.getEndDate(), format.parse(endDate)); 
-	}
-
 	// TestBasicFunctionality 
 	// The test of dates in both project and task are collected.
 	// since they both extend DateObject this is tested instead
@@ -112,36 +93,6 @@ public class TestBasicFunctionality {
 			assertEquals(e.getOperation(), "Set startdate");
 		} 
 		
-		// Wrong date-format start
-		startDate = "01-2014"; 
-		try {
-			dateObject = new DateObject(startDate, endDate); 
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Date must have the format YYYY-ww");
-			assertEquals(e.getOperation(), "Set startdate");
-		}
-		
-		// Wrong date-format start
-		startDate = "12345678910"; 
-		try {
-			dateObject = new DateObject(startDate, endDate); 
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Date must have the format YYYY-ww");
-			assertEquals(e.getOperation(), "Set startdate");
-		}
-		
-		// Startdate null
-		startDate = null; 
-		try {
-			dateObject = new DateObject(startDate, endDate); 
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Date must have the format YYYY-ww");
-			assertEquals(e.getOperation(), "Set startdate");
-		}
-		
 		// Illegal week end
 		startDate = "2014-01"; 
 		endDate = "2014-57"; 
@@ -152,36 +103,6 @@ public class TestBasicFunctionality {
 			assertEquals(e.getMessage(), "Date must have the format YYYY-ww");
 			assertEquals(e.getOperation(), "Set enddate");
 		} 
-		
-		// Wrong date-format end
-		endDate = "01-2014"; 
-		try {
-			dateObject = new DateObject(startDate, endDate); 
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Date must have the format YYYY-ww");
-			assertEquals(e.getOperation(), "Set enddate");
-		}
-		
-		// Wrong date-format end 
-		endDate = "12345678910"; 
-		try {
-			dateObject = new DateObject(startDate, endDate); 
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Date must have the format YYYY-ww");
-			assertEquals(e.getOperation(), "Set enddate");
-		}
-		// Enddate null
-		endDate = null; 
-		try {
-			dateObject = new DateObject(startDate, endDate); 
-			fail("OperationNotAllowedException should have been thrown"); 
-		} catch (OperationNotAllowedException e) {
-			assertEquals(e.getMessage(), "Date must have the format YYYY-ww");
-			assertEquals(e.getOperation(), "Set enddate");
-		}
-		
 		// End date before start date
 		startDate = "2015-07"; 
 		endDate = "2015-01"; 
@@ -193,6 +114,5 @@ public class TestBasicFunctionality {
 			assertEquals(e.getMessage(), "End date must be after start date");
 			assertEquals(e.getOperation(), "Set enddate");
 		}
-	}
-
+	} 
 }

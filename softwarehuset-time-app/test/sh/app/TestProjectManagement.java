@@ -15,78 +15,11 @@ import static org.junit.Assert.fail;
 
 public class TestProjectManagement {
 	
-	@Before
-	public void setUp() throws OperationNotAllowedException{
-		TimeApp timeApp = new TimeApp(); 	
-	}
-	
-	// Test creation of project
-		@Test
-		public void testCreateProject() throws Exception{
-			String startDate = "2015-02"; 
-			String endDate = "2015-03"; 
-			
-			// Correct creation of project
-			Project project = new Project("p1",startDate, endDate); 
-			
-			TimeApp timeApp = new TimeApp();
-			assertEquals(timeApp.getProjects().size(), 0);
-			
-			// Add project with unique name
-			timeApp.addProject(project);
-
-			assertEquals(timeApp.getProjects().size(), 1);
-			
-			// Add project with not unique name
-			Project project1 = new Project("p1", "2015-02", "2015-03");
-			
-			try {
-				timeApp.addProject(project1);
-				fail("OperatioNotAllowedException should have been thrown");
-			} catch (OperationNotAllowedException e) {
-				assertEquals(e.getMessage(), "Project name must be unique");
-				assertEquals(e.getOperation(), "Add project");
-			}		
-			
-			// Empty string as project name
-			try {
-				project = new Project("",startDate, endDate);  
-				fail("OperationNotAllowedException should have been thrown"); 
-			} catch (OperationNotAllowedException e) {
-				assertEquals(e.getMessage(), "Project name cannot be empty"); 
-				assertEquals(e.getOperation(), "Construct project"); 
-			}
-		}
-		
-		@Test 
-		public void testAssignProjectManager() throws Exception{
-			Project project = new Project("p1","2015-01", "2015-02");
-			User user1 = new User("dev1");
-			
-			project.setProjectmanager(user1);
-			assertEquals(project.getProjectmanager(), user1); 
-		}
-		
-		@Test
-		public void testSelectProject() throws Exception {
-			TimeApp timeApp = new TimeApp();
-			Project project = new Project("p1", "2015-01", "2015-02");
-			timeApp.addProject(project);
-			
-			// Return project
-			Project testProject1 = timeApp.getProjectByName(project.getName());
-			assertEquals(testProject1.getName(), project.getName());
-			
-			// Return null
-			Project testProject2 = timeApp.getProjectByName( "wrong name" );
-			assertEquals(testProject2, null);
-		}
-		
 		@Test
 		public void testPMCreateTask() throws Exception{
 			
 			Project project = new Project("p1","2015-01", "2015-40"); 
-			User PM = new User("PM"); 
+			User PM = new User("PM");
 			project.setProjectmanager(PM);
 		
 			String taskName = "taskname"; 

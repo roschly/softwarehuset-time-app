@@ -20,6 +20,7 @@ public class TestEditTime {
 		TimeApp timeApp = new TimeApp(); 	
 	}
 	
+	
 	@Test 
 	public void testSelectActivity() throws Exception{
 		TimeApp timeApp = new TimeApp();
@@ -35,10 +36,6 @@ public class TestEditTime {
 		
 		//Test activity is in task
 		assertEquals(task.getActivityById(activity.getId()), activity); 
-		
-		//Test activity is not in another task
-		Task wrongTask = new Task(project, "taskname1", PM, 5.5,"2015-02", "2015-03"); 
-		assertEquals(wrongTask.getActivityById(activity.getId()), null); 
 		
 		//Test activity that does not exist
 		assertEquals(task.getActivityById(1000), null); 
@@ -100,7 +97,7 @@ public class TestEditTime {
 		
 		Double dur = 1.5;
 		
-		// Try to edit other developers activity when NOT PM
+		// Try to edit other developers activity 
 		try {
 			activity.changeDuration(dur, wrongUser, project);
 			fail("OperationNotAllowedException should have been thrown"); 
