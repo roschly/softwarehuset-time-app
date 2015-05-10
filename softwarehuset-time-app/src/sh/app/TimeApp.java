@@ -10,7 +10,6 @@ public class TimeApp {
 	
 	public TimeApp(){
 		
-		/*
 		// hardcode data
 		try {
 			User dev01 = new User("dev01");
@@ -91,9 +90,20 @@ public class TimeApp {
 			p02t9.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t9)); 
 			p02t10.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t10));
 			
+			// dev01 activities
+			Activity dev01act1 = new Activity("2015-02-15", 8.0, dev01, p02t1);
+			Activity dev01act2 = new Activity("2015-02-16", 3.0, dev01, p02t1); 
+			Activity dev01act3 = new Activity("2015-02-15", 5.0, dev01, p02t1); 
+			
+			// dev02 activites
+			Activity dev02act1 = new Activity("2015-03-01", 4.0, dev02, p01t1); 
+			Activity dev02act2 = new Activity("2015-03-01", 4.0, dev02, p01t2); 
+			Activity dev02act3 = new Activity("2015-03-01", 4.0, dev02, p01t3); 
+			
+			
 		} catch (Exception e){
 		}
-		*/
+		
 	}
 	
 	public ArrayList<User> getUsers(){
