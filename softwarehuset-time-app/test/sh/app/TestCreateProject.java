@@ -25,12 +25,12 @@ public class TestCreateProject {
 				Project project = new Project("p1",startDate, endDate); 
 				
 				TimeApp timeApp = new TimeApp();
-				assertEquals(timeApp.getProjects().size(), 0);
+				int presize = timeApp.getProjects().size();
 				
 				// Add project with unique name
 				timeApp.addProject(project); 
 
-				assertEquals(timeApp.getProjects().size(), 1);
+				assertEquals(timeApp.getProjects().size(), presize + 1);
 				
 				// Add project with not unique name
 				Project project1 = new Project("p1", "2015-02", "2015-03");

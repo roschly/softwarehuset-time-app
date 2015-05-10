@@ -10,33 +10,90 @@ public class TimeApp {
 	
 	public TimeApp(){
 		
-
 		/*
 		// hardcode data
 		try {
-			User dev = new User("dev");
-			User dev2 = new User("dev2");
-			User pm = new User("pm");
-			this.users.add( pm );
-			this.users.add( dev );
-			this.users.add( dev2 ); 
+			User dev01 = new User("dev01");
+			User dev02 = new User("dev02");
+			User dev03 = new User("dev03");
+			User dev04 = new User("dev04");
+			User dev05 = new User("dev05");
+			User dev06 = new User("dev06"); 
 			
-			Project p1 = new Project("p1", "2015-01", "2015-02");
-			Project p2 = new Project("p2", "2015-01", "2015-02");
-			this.projects.add( p1 );
-			this.projects.add( p2 );
+			User pm01 = new User("pm01");
+			User pm02 = new User("pm02"); 
+			User pm03 = new User("pm03"); 
 			
-			p1.setProjectmanager(pm);
+			this.users.add( dev01 );
+			this.users.add( dev02 );
+			this.users.add( dev03 );
+			this.users.add( dev04 );
+			this.users.add( dev05 );
+			this.users.add( dev06 );
+			this.users.add( pm01 );
+			this.users.add( pm02 );
+			this.users.add( pm03 );
+			 
 			
-			Task t1 = new Task(p1, "t1", pm,  5.0, "2015-02", "2015-03");
-			t1.addDeveloper(dev, pm, p1, this.getAvailableDevelopers(t1));
-			Activity activity = new Activity("2015-01-01", 8.0, dev, t1); 
-			//new Task(p1, "t2", 10.0, "2015-02", "2015-03");
+			Project p01 = new Project("p01", "2015-01", "2015-50");
+			Project p02 = new Project("p02", "2014-01", "2015-50");
+			Project p03 = new Project("p02", "2015-02", "2015-03");
 			
-			//new Activity("2015-01-01", 8.0, dev, t1);
-			//new Activity("2015-01-02", 7.5, dev, t1);
+			this.projects.add( p01 );
+			this.projects.add( p02 );
+			this.projects.add( p03 );
+			
+			p01.setProjectmanager(pm01);
+			p02.setProjectmanager(pm02);
+			p03.setProjectmanager(pm03);
+			
+			Task p01t1 = new Task(p01, "t1", pm01,  5.0, "2015-05", "2015-10");
+			Task p01t2 = new Task(p01, "t2", pm01,  5.0, "2015-10", "2015-15");
+			Task p01t3 = new Task(p01, "t3", pm01,  5.0, "2015-15", "2015-20");
+			Task p01t4 = new Task(p01, "t4", pm01,  5.0, "2015-20", "2015-25");
+			Task p01t5 = new Task(p01, "t5", pm01,  5.0, "2015-25", "2015-30");
+			Task p01t6 = new Task(p01, "t6", pm01,  5.0, "2015-30", "2015-35");
+			Task p01t7 = new Task(p01, "t7", pm01,  5.0, "2015-35", "2015-40");
+			Task p01t8 = new Task(p01, "t8", pm01,  5.0, "2015-40", "2015-45");
+			Task p01t9 = new Task(p01, "t9", pm01,  5.0, "2015-45", "2015-50");
+			
+			Task p02t1 = new Task(p02, "t1", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t2 = new Task(p02, "t2", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t3 = new Task(p02, "t3", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t4 = new Task(p02, "t4", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t5 = new Task(p02, "t5", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t6 = new Task(p02, "t6", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t7 = new Task(p02, "t7", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t8 = new Task(p02, "t8", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t9 = new Task(p02, "t9", pm02,  5.0, "2015-05", "2015-10");
+			Task p02t10 = new Task(p02, "t10", pm02,  5.0, "2015-05", "2015-10");
+			
+			// dev01 assigned to 9 tasks "2015-05"-"2015-10"
+			p02t1.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t1));
+			p02t2.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t2));
+			p02t3.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t3));
+			p02t4.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t4));
+			p02t5.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t5));
+			p02t6.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t6));
+			p02t7.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t7));
+			p02t8.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t8));
+			p02t9.addDeveloper(dev01, pm02, p02, this.getAvailableDevelopers(p02t9));
+			
+			// dev02 assigned to 10 (max) tasks "2015-05"-"2015-10"
+			p02t1.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t1));
+			p02t2.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t2));
+			p02t3.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t3));
+			p02t4.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t4));
+			p02t5.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t5));
+			p02t6.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t6));
+			p02t7.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t7));
+			p02t8.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t8));
+			p02t9.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t9)); 
+			p02t10.addDeveloper(dev02, pm02, p02, this.getAvailableDevelopers(p02t10));
+			
 		} catch (Exception e){
-		}*/	
+		}
+		*/
 	}
 	
 	public ArrayList<User> getUsers(){

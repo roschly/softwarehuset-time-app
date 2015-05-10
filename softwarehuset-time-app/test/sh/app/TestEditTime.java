@@ -15,12 +15,6 @@ import static org.junit.Assert.fail;
 
 public class TestEditTime {
 	
-	@Before
-	public void setUp() throws OperationNotAllowedException{
-		TimeApp timeApp = new TimeApp(); 	
-	}
-	
-	
 	@Test 
 	public void testSelectActivity() throws Exception{
 		TimeApp timeApp = new TimeApp();

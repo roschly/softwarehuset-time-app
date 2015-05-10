@@ -19,11 +19,11 @@ public class TestGetAvailableDevelopers {
 	public void testAddUsersToTimeApp() throws Exception{
 		TimeApp timeApp = new TimeApp();  
 		User user = new User("dev"); 
-		assertEquals(timeApp.getUsers().size(), 0);   
+		int presize = timeApp.getUsers().size();    
 		
 		// Add user with unique name
 		timeApp.addUser(user);
-		assertEquals(timeApp.getUsers().size(), 1);
+		assertEquals(timeApp.getUsers().size(), presize + 1);
 		
 		// Add user with not unique name
 		try {
@@ -39,19 +39,19 @@ public class TestGetAvailableDevelopers {
 	public void testGetDevelopers() throws Exception{
 		TimeApp timeApp = new TimeApp(); 
 		User user1 = new User("dev1");
+		int presize = timeApp.getUsers().size(); 
 		
 		timeApp.addUser(user1);
 		
 		ArrayList<User> testArray = new ArrayList<User>();
-		assertEquals(testArray.size(), 0);
 		
 		testArray = timeApp.getUsers();
-		assertEquals(testArray.size(), 1);
+		assertEquals(testArray.size(), presize + 1);
 		
 		User user2 = new User("dev2");
 		timeApp.addUser(user2);
 		testArray = timeApp.getUsers();
-		assertEquals(testArray.size(), 2);
+		assertEquals(testArray.size(), presize + 2);
 	}
 	
 	@Test
@@ -62,6 +62,7 @@ public class TestGetAvailableDevelopers {
 		User PM = new User("PM");
 		project.setProjectmanager(PM);
 		Task task = new Task(project, "task", PM, 5.0, "2015-03", "2015-06");
+		int presize = timeApp.getAvailableDevelopers(task).size();
 		
 		User user1 = new User("dev1");
 		User user2 = new User("dev2");
@@ -79,7 +80,7 @@ public class TestGetAvailableDevelopers {
 		assertEquals(testArray.size(), 0);
 		
 		testArray = timeApp.getAvailableDevelopers(task);
-		assertEquals(testArray.size(), 5);
+		assertEquals(testArray.size(), presize + 5);
 	
 		//Loop til at assigne user til tasks
 		for ( int i = 1; i <= 10; i++ ){
@@ -95,7 +96,7 @@ public class TestGetAvailableDevelopers {
 		
 		// Test at kun de ledige returneres
 		testArray = timeApp.getAvailableDevelopers(task);
-		assertEquals(testArray.size(), 4);
+		assertEquals(testArray.size(), presize + 4);
 	} 
 	
 }
