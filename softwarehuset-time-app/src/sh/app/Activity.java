@@ -43,8 +43,8 @@ public class Activity {
 	
 	public void changeDuration(Double duration, User user, Project project) throws Exception{
 		
-		if( ! (this.developer.equals(user) || project.getProjectmanager().equals(user)) ) {
-			throw new OperationNotAllowedException("Must be projectmanager to edit another developers activity", "Edit activity"); 
+		if( ! (this.developer.equals(user)) ) {
+			throw new OperationNotAllowedException("Can only edit own activity", "Edit activity"); 
 		} 
 		this.setDuration(duration);
 	

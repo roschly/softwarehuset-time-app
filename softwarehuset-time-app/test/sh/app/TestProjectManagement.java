@@ -17,9 +17,7 @@ public class TestProjectManagement {
 	
 	@Before
 	public void setUp() throws OperationNotAllowedException{
-		TimeApp timeApp = new TimeApp(); 
-		
-		
+		TimeApp timeApp = new TimeApp(); 	
 	}
 	
 	//  Where to put this
@@ -685,6 +683,7 @@ public class TestProjectManagement {
 		}
 	}
 	
+	/*
 	@Test
 	public void testEditActivityPM() throws Exception{
 		TimeApp timeApp = new TimeApp();
@@ -704,10 +703,10 @@ public class TestProjectManagement {
 		activity.changeDuration(dur, PM, project);
 		assertEquals(activity.getDuration(), dur);
 		
-	}
+	} */
 	
 	@Test
-	public void testEditActivityNotOwnNotPM() throws Exception{
+	public void testEditActivityNotOwn() throws Exception{
 		TimeApp timeApp = new TimeApp();
 		Project project = new Project("p1","2015-01", "2015-04");
 		User PM = new User("PM");
@@ -727,7 +726,7 @@ public class TestProjectManagement {
 			activity.changeDuration(dur, wrongUser, project);
 			fail("OperationNotAllowedException should have been thrown"); 
 		} catch (OperationNotAllowedException e){
-			assertEquals(e.getMessage(), "Must be projectmanager to edit another developers activity");
+			assertEquals(e.getMessage(), "Can only edit own activity");
 			assertEquals(e.getOperation(), "Edit activity");
 		}
 		assertNotEquals(activity.getDuration(), dur);
