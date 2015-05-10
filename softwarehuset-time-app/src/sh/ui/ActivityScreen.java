@@ -26,11 +26,7 @@ public class ActivityScreen extends Screen {
 	public void printMenu(PrintWriter out) throws IOException {
 		out.println("=== ACTIVITY VIEW: ID " + this.activity.getId());
 		out.println("0: Back");
-		out.println("1 <hours>: Change duration"); // this.activity.setDuration(<input>)
-		//out.println("2 <date: YYYY-MM-DD>: Change date");
-		//out.println("3: Delete activity");
-
-		
+		out.println("1 <hours>: Change duration");
 	}
 
 	@Override
@@ -61,7 +57,7 @@ public class ActivityScreen extends Screen {
 					out.println(e.getMessage());
 				}
 			}
-			break;			
+			break;
 		default:
 			out.print("ERROR: wrong input");
 			break;

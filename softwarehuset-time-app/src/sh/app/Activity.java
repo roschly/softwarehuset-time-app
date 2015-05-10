@@ -43,7 +43,8 @@ public class Activity {
 		
 			if (duration % 0.5 != 0 || duration == 0.0){
 				throw new OperationNotAllowedException("Activity duration must be divisable by 0.5 AND not 0", "Set duration");
-			}		
+			}
+			
 		this.duration = duration;
 	}
 	
